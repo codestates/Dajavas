@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const controllers = require("../controllers/user/user");
+const controllers = require("../controllers/fish/board");
 
-/* GET users listing. */
 router.get("/", controllers.get);
 router.post("/", controllers.post);
 router.put("/", controllers.put);

@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const controllers = require("../controllers/user/user");
+const controllers = require("../controllers/map/map");
 
-/* GET users listing. */
+/* GET map listing. */
 router.get("/", controllers.get);
 router.post("/", controllers.post);
-router.put("/", controllers.put);
+router.patch("/", controllers.patch);
 router.delete("/", controllers.delete);
 
 module.exports = router;
