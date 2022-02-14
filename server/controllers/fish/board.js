@@ -7,12 +7,15 @@ module.exports = {
     const validate = await func.validateToken(req.headers.Authorizationtoken);
     const page = req.query.page || 1;
     const allFiltered = [];
+    const result = [];
     const filteredId = await models.user_fish.findAll({
       where: { user_id: userInfo.id },
     });
     function arrPush() {
       for (let i = 0; i < filteredId.length; i++) {
-        allFiltered.push(models.fish.findAll({ where: { id: filteredId[i] } }));
+        allFiltered.push(
+          await models.fish.findAll({ where: { id: filteredId } })[i]
+        );
       }
       allFiltered.sort(function (a, b) {
         if (a.updatedAt > b.updatedAt) return -1;
@@ -23,7 +26,6 @@ module.exports = {
         result.push(allFiltered[i]);
       }
     }
-    const result = [];
     try {
       if (!validate) {
         return res.status(401).send({ response: "not authorized" });
@@ -57,7 +59,7 @@ module.exports = {
       if (!validate) {
         return res.status(401).send("not authorized");
       } else {
-        await models.fishpdate(
+        await models.fish.update(
           {
             fish_name: fish_name,
             size: size,
