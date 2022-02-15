@@ -10,7 +10,7 @@ module.exports = {
     const filteredFish = await models.fish.findAll({
       where: { fish_name: fishName },
     });
-    function arrPush() {
+    const arrPush = async () => {
       for (let i = 0; i < filteredFish.length; i++) {
         allFiltered.push(
           await models.fish.findAll({
@@ -26,7 +26,7 @@ module.exports = {
       for (let i = 0; i < 5 * page; i++) {
         result.push(allFiltered[i]);
       }
-    }
+    };
     try {
       arrPush();
       return res.status(200).send({ data: { result } });

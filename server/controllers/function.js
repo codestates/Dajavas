@@ -1,9 +1,11 @@
 const { verify } = require("jsonwebtoken");
 const models = require("../models");
+const accessToken = require("./user/accesstoken");
+// console.log("토큰 확인!", accessToken);
 
 module.exports = {
   validateToken: async (token) => {
-    const userInfo = await verify(token, process.env.ACCESS_SECRET);
+    const userInfo = await verify(accessToken, process.env.ACCESS_SECRET);
     if (!userInfo) null;
     return userInfo;
   },

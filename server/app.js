@@ -3,10 +3,10 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const fs = require("fs");
-// const indexRouter = require("./routes/index");
-// const usersRouter = require("./routes/users");
-// const mapRouter = require("./routes/map");
-// const rankingRouter = require("./routes/ranking");
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
+const mapRouter = require("./routes/map");
+const rankingRouter = require("./routes/ranking");
 const fishRouter = require("./routes/fish");
 const https = require("https");
 const cors = require("cors");
@@ -23,11 +23,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
-// app.use("/", indexRouter);
-// app.use("/user", usersRouter);
+app.use("/", indexRouter);
+app.use("/user", usersRouter);
 app.use("/fish", fishRouter);
-// app.use("/map", mapRouter);
-// app.usearch("/ranking", rankingRouter);
+app.use("/map", mapRouter);
+app.use("/ranking", rankingRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

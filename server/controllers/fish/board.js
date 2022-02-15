@@ -11,7 +11,7 @@ module.exports = {
     const filteredId = await models.user_fish.findAll({
       where: { user_id: userInfo.id },
     });
-    function arrPush() {
+    const arrPush = async () => {
       for (let i = 0; i < filteredId.length; i++) {
         allFiltered.push(
           await models.fish.findAll({ where: { id: filteredId } })[i]
@@ -25,7 +25,7 @@ module.exports = {
       for (let i = 0; i < 5 * page; i++) {
         result.push(allFiltered[i]);
       }
-    }
+    };
     try {
       if (!validate) {
         return res.status(401).send({ response: "not authorized" });
