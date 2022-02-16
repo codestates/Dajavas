@@ -1,15 +1,13 @@
-import React from 'react'
-import Sidebar from '../Sidebar/Sidebar'
-import FishBoard from './FishBoard/FishBoard'
+import React from 'react';
+import Sidebar from '../Sidebar/Sidebar';
+import logo from '../../img/Dajavas_logo.png';
 
-function Nav() {
+
+function Nav(props) {
+
     return (
         <div>
-            <Sidebar/>
-            //로고
-            <Ranking/>
-            <FishBoard/>
-            <Map/>
+            
         </div>
     )
 }

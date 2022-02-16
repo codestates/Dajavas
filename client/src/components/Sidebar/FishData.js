@@ -4,6 +4,7 @@ function FishData() {
     return (
         <div>
             fishdata
+            <h1></h1>
         </div>
     )
 }
