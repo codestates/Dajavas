@@ -5,7 +5,7 @@ const accessToken = require("./user/accesstoken");
 
 module.exports = {
   validateToken: async (token) => {
-    const userInfo = await verify(accessToken, process.env.ACCESS_SECRET);
+    const userInfo = verify(token, process.env.ACCESS_SECRET);
     if (!userInfo) null;
     return userInfo;
   },
