@@ -8,12 +8,16 @@ import FishData from "./components/Sidebar/FishData";
 import ClosedSeason from "./components/Sidebar/ClosedSeason";
 import CheckList from "./components/Sidebar/CheckList";
 import MyPage from "./components/Sidebar/MyPage";
+import BoardContent from "./components/Nav/FishBoard/BoardContent";
 import ErrorPage from "./ErrorPage";
+import Nav from "./components/Nav/Nav";
 
 function App() {
   return (
   <div className="App">
   <Router>
+    <Nav/>
+    
     <Routes>
       <Route exact path='/' element={<Home/>}/>
       <Route exact path='/ranking' element={<Ranking/>}/> 
@@ -23,11 +27,11 @@ function App() {
       <Route exact path='/closedseason' element={<ClosedSeason/>}/>     
       <Route exact path='/checklist' element={<CheckList/>}/>
       <Route exact path='/mypage' element={<MyPage/>}/>
+      <Route exact path='/record' element={<BoardContent/>}/>
       <Route exact path='/errorpage' element={<ErrorPage/>}/>               
     </Routes> 
-   </Router> 
-   
-  
+    
+  </Router> 
   </div>);
 }
 
