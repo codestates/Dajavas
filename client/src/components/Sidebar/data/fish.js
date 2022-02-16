@@ -1,9 +1,9 @@
 import React from 'react'
 
-function fish() {
-  return (
-    <div>fish</div>
-  )
-}
+const fish = [
+  {
+    "name": "붕어"
+  }
+];
 
 export default fish
