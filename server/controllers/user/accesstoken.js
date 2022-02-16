@@ -11,7 +11,7 @@ module.exports = {
         email,
       },
       access,
-      { expiresIn: "30m", issuer: "토큰토큰" }
+      { expiresIn: "30d", issuer: "토큰토큰" }
     );
     return token;
   },

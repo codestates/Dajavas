@@ -3,9 +3,10 @@ const func = require("../function");
 
 module.exports = {
   get: async (req, res) => {
-    // const validate = await func.validateToken(req.headers.authorizationtoken);
+    const validate = await func.validateToken(req.headers.authorizationtoken);
     const userInfo = await func.checkUser(req.query.email);
     const result = [];
+    let realResult = [];
     const data = await models.location.findAll({
       where: { user_id: userInfo.id },
     });
@@ -21,14 +22,15 @@ module.exports = {
           long: locationInfo.long,
         });
       }
+      realResult = result.slice((page - 1) * 5, page * 5);
     }
     try {
-      // if (!validate) {
-      //   return res.status(401).send({ message: "not authorized" });
-      // } else {
-      await arr();
-      return res.status(200).send({ data: { result } });
-      // }
+      if (!validate) {
+        return res.status(401).send({ message: "not authorized" });
+      } else {
+        await arr();
+        return res.status(200).send({ data: { realResult } });
+      }
     } catch {
       return console.log("유저 즐겨찾기 위치 조회 잘못되었음");
     }

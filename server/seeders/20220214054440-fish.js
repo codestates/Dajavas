@@ -35,6 +35,36 @@ module.exports = {
           size: 18,
           ranked: 1,
         },
+        {
+          fish_name: "농어",
+          src: "",
+          size: 15,
+          ranked: 1,
+        },
+        {
+          fish_name: "농어",
+          src: "",
+          size: 33,
+          ranked: 1,
+        },
+        {
+          fish_name: "농어",
+          src: "",
+          size: 58,
+          ranked: 1,
+        },
+        {
+          fish_name: "농어",
+          src: "",
+          size: 12,
+          ranked: 1,
+        },
+        {
+          fish_name: "농어",
+          src: "",
+          size: 57,
+          ranked: 1,
+        },
       ],
       {}
     );
