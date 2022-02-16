@@ -1,9 +1,21 @@
-var express = require('express');
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
+const controllers = require("../controllers/user/mypage");
+const emailcheck = require("../controllers/user/emailcheck");
+const namecheck = require("../controllers/user/namecheck");
+const login = require("../controllers/user/login");
+const logout = require("../controllers/user/logout");
+const signup = require("../controllers/user/signup");
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+
+router.get("/mypage", controllers.get);
+router.get("/emailcheck", emailcheck.get);
+router.get("/namecheck", namecheck.get);
+router.post("/login", login.post);
+router.post("/signup", signup.post);
+router.post("/logout", logout.post);
+router.put("/mypage", controllers.put);
+router.delete("/mypage", controllers.delete);
 
 module.exports = router;
