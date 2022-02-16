@@ -22,8 +22,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
-app.use("/", indexRouter);
-app.use("/user", usersRouter);
+//app.use("/", indexRouter);
+//app.use("/user", usersRouter);
 app.use("/fish", fishRouter);
 app.use("/map", mapRouter);
 app.use("/ranking", rankingRouter);

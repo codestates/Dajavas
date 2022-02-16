@@ -13,7 +13,7 @@ module.exports = {
         },
         {
           nickname: "parkhacker",
-          email: "parkhacker@gmailcom",
+          email: "parkhacker@gmail.com",
           password: "1234",
           login_method: 0,
         },

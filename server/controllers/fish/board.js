@@ -10,7 +10,7 @@ module.exports = {
     const filteredId = await models.user_fish.findAll({
       where: { user_id: userInfo.id },
     });
-    // const validate = await func.validateToken(req.headers.Authorizationtoken);
+    // const validate = await func.validateToken(req.headers.authorizationtoken);
     async function arrPush() {
       for (let i = 0; i < filteredId.length; i++) {
         filterFishId.push(filteredId[i].fish_id);
@@ -58,7 +58,7 @@ module.exports = {
   },
   put: async (req, res) => {
     const { fishId, fish_name, size, ranked, src, userId } = req.body;
-    const validate = await func.validateToken(req.headers.Authorizationtoken);
+    const validate = await func.validateToken(req.headers.authorizationtoken);
     try {
       if (!validate) {
         return res.status(401).send({ message: "not authorized" });
@@ -81,7 +81,7 @@ module.exports = {
   },
   delete: async (req, res) => {
     const { email, userId, fishId } = req.body;
-    const validate = await func.validateToken(req.headers.Authorizationtoken);
+    const validate = await func.validateToken(req.headers.authorizationtoken);
     try {
       if (!validate) {
         return res.status(401).send({ message: "not authorized" });
