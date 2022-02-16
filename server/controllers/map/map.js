@@ -3,17 +3,32 @@ const func = require("../function");
 
 module.exports = {
   get: async (req, res) => {
-    const validate = await func.validateToken(req.headers.Authorizationtoken);
+    // const validate = await func.validateToken(req.headers.Authorizationtoken);
     const userInfo = await func.checkUser(req.query.email);
-    try {
-      if (!validate) {
-        return res.status(401).send({ response: "not authorized" });
-      } else {
-        const data = await models.location.findAll({
-          where: { user_id: userInfo.id },
+    const result = [];
+    const data = await models.location.findAll({
+      where: { user_id: userInfo.id },
+    });
+    async function arr() {
+      for (let i = 0; i < data.length; i++) {
+        const locationInfo = await models.location.findOne({
+          where: { user_id: data[i].user_id },
         });
-        return res.status(200).send({ data: data });
+        result.push({
+          id: locationInfo.id,
+          location_name: locationInfo.location_name,
+          lat: locationInfo.lat,
+          long: locationInfo.long,
+        });
       }
+    }
+    try {
+      // if (!validate) {
+      //   return res.status(401).send({ message: "not authorized" });
+      // } else {
+      await arr();
+      return res.status(200).send({ data: { result } });
+      // }
     } catch {
       return console.log("유저 즐겨찾기 위치 조회 잘못되었음");
     }
@@ -23,7 +38,7 @@ module.exports = {
     const validate = await func.validateToken(req.headers.Authorizationtoken);
     try {
       if (!validate) {
-        return res.status(401).send("not authorized");
+        return res.status(401).send({ message: "not authorized" });
       } else {
         await models.location.create({
           location_name: location_name,
@@ -31,7 +46,7 @@ module.exports = {
           lat: lat,
           long: long,
         });
-        return res.status(201).send({ response: `${userId}` });
+        return res.status(201).send({ message: `${userId}` });
       }
     } catch {
       return console.log("유저 즐겨찾기 위치 등록 잘못되었음");
@@ -42,7 +57,7 @@ module.exports = {
     const validate = await func.validateToken(req.headers.Authorizationtoken);
     try {
       if (!validate) {
-        return res.status(401).send("not authorized");
+        return res.status(401).send({ message: "not authorized" });
       } else {
         await models.location.update(
           {
@@ -50,7 +65,7 @@ module.exports = {
           },
           { where: { id: locationId } }
         );
-        return res.status(200).send({ response: "location_name change" });
+        return res.status(200).send({ message: "location_name change" });
       }
     } catch {
       return console.log("유저 즐겨찾기 위치 이름수정 잘못되었음");
@@ -61,14 +76,14 @@ module.exports = {
     const validate = await func.validateToken(req.headers.Authorizationtoken);
     try {
       if (!validate) {
-        return res.status(401).send({ response: "not authorized" });
+        return res.status(401).send({ message: "not authorized" });
       } else {
         await models.location.destroy({
           where: {
             id: locationId,
           },
         });
-        return res.status(200).send({ response: "deleted location" });
+        return res.status(200).send({ message: "deleted location" });
       }
     } catch {
       return console.log("유저 즐겨찾기 위치 삭제");

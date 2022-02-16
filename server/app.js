@@ -3,14 +3,13 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const fs = require("fs");
-const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
+// const indexRouter = require("./routes/index");
+// const usersRouter = require("./routes/users");
 const mapRouter = require("./routes/map");
 const rankingRouter = require("./routes/ranking");
 const fishRouter = require("./routes/fish");
 const https = require("https");
 const cors = require("cors");
-
 const app = express();
 
 // view engine setup
