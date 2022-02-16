@@ -2,7 +2,7 @@ import React from 'react'
 import Nav from '../Nav/Nav'
 import Footer from '../Footer/Footer'
 import Sidebar from '../Sidebar/Sidebar';
-
+import styled from 'styled-components';
 
 function Home() {
 
@@ -13,6 +13,7 @@ function Home() {
             <Sidebar />
             <Footer />
         </div>
+
     )
 }
 

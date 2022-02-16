@@ -8,9 +8,11 @@ import FishData from "./components/Sidebar/FishData";
 import ClosedSeason from "./components/Sidebar/ClosedSeason";
 import CheckList from "./components/Sidebar/CheckList";
 import MyPage from "./components/Sidebar/MyPage";
+import BoardContent from "./components/Nav/FishBoard/BoardContent";
 import ErrorPage from "./ErrorPage";
 import Login from './components/Login/Login'
 import Signup from "./components/Login/Signup";
+import Nav from "./components/Nav/Nav";
 
 function App() {
   return (
