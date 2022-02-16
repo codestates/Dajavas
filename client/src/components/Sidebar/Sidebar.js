@@ -4,6 +4,12 @@ import { Link } from 'react-router-dom'
 import styles from './sidebar.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars  } from '@fortawesome/free-solid-svg-icons';
+import styled from 'styled-components';
+
+const Div = styled.div`
+  border: dotted red 2px;
+`
+
 
 const Sidebar = ({ width=280, children }) => {
     const [isOpen, setOpen] = useState(false);
@@ -40,7 +46,7 @@ const Sidebar = ({ width=280, children }) => {
   
 
     return (
-        <div className={styles.container}>
+        <Div className={styles.container}>
             <div ref={side}  className={styles.sidebar} style={{ width: `${width}px`, height: '100%',  transform: `translatex(${-xPosition}px)`}}>
                 <FontAwesomeIcon icon={faBars}
                     className={styles.icon}
@@ -66,7 +72,7 @@ const Sidebar = ({ width=280, children }) => {
                     <Link to='/checklist'>체크리스트</Link>
                 </div>
             </div>
-        </div>
+        </Div>
     )
 }
 

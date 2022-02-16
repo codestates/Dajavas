@@ -13,24 +13,44 @@ import ErrorPage from "./ErrorPage";
 import Login from './components/Login/Login'
 import Signup from "./components/Login/Signup";
 import Nav from "./components/Nav/Nav";
+import Sidebar from "./components/Sidebar/Sidebar";
+import styled from "styled-components";
+
+const Box = styled.div`
+  display: flex;
+`
+
+const Div = styled.div`
+
+ `
+
 
 function App() {
   return (
-  <div className="App">
+    <div className="App">
     <Router>
-      <Routes>
-        <Route exact path='/' element={<Home/>}/>
-        <Route exact path='/ranking' element={<Ranking/>}/> 
-        <Route exact path='/map' element={<Map/>}/> 
-        <Route exact path='/fishboard' element={<FishBoard/>}/>
-        <Route exact path='/fishdata' element={<FishData/>}/>
-        <Route exact path='/closedseason' element={<ClosedSeason/>}/>     
-        <Route exact path='/checklist' element={<CheckList/>}/>
-        <Route exact path='/mypage' element={<MyPage/>}/>
-        <Route exact path='/errorpage' element={<ErrorPage/>}/>
-        <Route exact path='/login' element={<Login />}/>  
-        <Route exact path='/signup' element={<Signup />}/>            
-      </Routes> 
+      <Box>
+      <Div>
+        <Sidebar /> 
+      </Div>
+      <Div>
+        <Nav/> 
+        <Routes>
+          <Route exact path='/' element={<Home/>}/>
+          <Route exact path='/ranking' element={<Ranking/>}/> 
+          <Route exact path='/map' element={<Map/>}/> 
+          <Route exact path='/fishboard' element={<FishBoard/>}/>
+          <Route exact path='/fishdata' element={<FishData/>}/>
+          <Route exact path='/closedseason' element={<ClosedSeason/>}/>     
+          <Route exact path='/checklist' element={<CheckList/>}/>
+          <Route exact path='/mypage' element={<MyPage/>}/>
+          <Route exact path='/record' element={<BoardContent/>}/>
+          <Route exact path='/errorpage' element={<ErrorPage/>}/>
+          <Route exact path='/login' element={<Login />}/>  
+          <Route exact path='/signup' element={<Signup />}/>            
+        </Routes> 
+      </Div>
+      </Box>
     </Router>
   </div>);
 }

@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from "styled-components";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+//import { faBars } from '@fortawesome/free-solid-svg-icons'
 import logo from '../../img/logo.png'
+import Sidebar from '../Sidebar/Sidebar';
 //import logo from '../../img/fishmarker.png'
 
 
@@ -25,11 +26,12 @@ const Div = styled.div`
 `
 
 
-
+function Nav () {
     return (
         <>
-            <Navi>            
-               <Div><Link to='/sidebar'><FontAwesomeIcon icon={faBars} style={{target:'_blank'}}/></Link></Div>
+            <Navi>
+                          
+               {/* <Div><Link to='/sidebar'><FontAwesomeIcon icon={faBars} style={{target:'_blank'}}/></Link></Div> */}
                <Div><Link to='/ranking' style={{ textDecoration: 'none', color:'#78AAFF',fontWeight:'bolder'}}>내가 짱</Link></Div>
                <Div><Link to='/'><img src={logo} alt="logo" style={{width:200, height:80,color:'black' }} /></Link></Div>
                <Div><Link to='/fishboard' style={{ textDecoration: 'none',color:'#78AAFF',fontWeight:'bolder'}}>기록</Link></Div>

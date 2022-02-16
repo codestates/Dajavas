@@ -1,10 +1,10 @@
 .container {
     background-color: #E3ECF1;
+    
   }
   .sidebar {
     background-color: #E3ECF1;
     border-right: 4px solid #202020;
-    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
@@ -21,7 +21,7 @@
     height: 40px;
     z-index: 99;
     transition: 0.8s ease;
-    /* border: 2px solid #202020; */
+    /* border: 2px solid #202020;*/
     border-radius: 40px;
     overflow: hidden;
   }
