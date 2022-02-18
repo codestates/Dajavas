@@ -20,7 +20,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://localhost:3000"],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "OPTIONS"],
+  })
+);
 
 app.use("/", indexRouter);
 app.use("/user", usersRouter);
