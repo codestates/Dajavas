@@ -1,6 +1,10 @@
 import React from 'react'
 import styled from 'styled-components';
 import photo from '../../../img/월척.png'
+import { connect } from 'react-redux';
+import  { axiosFishBoard }  from '../../../redux'
+import { useEffect } from 'react'
+
 
 const Div = styled.div`
     display: flex;
@@ -14,7 +18,16 @@ const Img = styled.img`
 `
 
 
-function FishList() {
+function FishList(props) {
+    console.log(props.axiosFishBoard,"+_+_+_+_+_+_+_")
+    console.log(props.axiosFishBoard.payload)
+    
+    useEffect(() => {
+        props.axiosFishBoard()
+    },[])
+
+    
+
     return (
         <Div>
             <Img src={photo} />
@@ -39,5 +52,16 @@ function FishList() {
        
     )
 }
+const mapStateToProps = (state) => {
+    console.log(state, "🤡")
+    return {
+        state
+    }
+}
 
-export default FishList
+const mapDispatchToProps = (dispatch) =>  {    
+   return {
+           axiosFishBoard: () => dispatch(axiosFishBoard)
+        }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(FishList)

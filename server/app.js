@@ -20,10 +20,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(cors());
+//app.use(cors());
+app.use(cors({
+  origin: ['https://localhost:3000'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'OPTIONS']
+}));
 
-//app.use("/", indexRouter);
-//app.use("/user", usersRouter);
+app.use("/", indexRouter);
+app.use("/user", usersRouter);
 app.use("/fish", fishRouter);
 app.use("/map", mapRouter);
 app.use("/ranking", rankingRouter);
@@ -45,7 +50,7 @@ app.use(function (err, req, res, next) {
 });
 
 // ----
-const HTTPS_PORT = process.env.HTTPS_PORT || 5000;
+const HTTPS_PORT = 443 || 80;
 
 // 인증서 파일들이 존재하는 경우에만 https 프로토콜을 사용하는 서버를 실행합니다.
 // 만약 인증서 파일이 존재하지 않는경우, http 프로토콜을 사용하는 서버를 실행합니다.

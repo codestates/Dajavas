@@ -44,7 +44,7 @@ module.exports = {
   },
   post: async (req, res) => {
     const { fish_name, size, ranked, src, userId } = req.body;
-
+    console.log(req.body)
     try {
       const fish = await models.fish.create({
         fish_name: fish_name,
