@@ -10,7 +10,7 @@ import { RiKakaoTalkFill } from 'react-icons/ri'; //카카오 아이콘
 
 import {
     loginAction,
-} from '../../store/actions';
+} from '../../redux/store/actions';
 import userApi from '../../API/user';
 
 function Login({type}) {
