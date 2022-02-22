@@ -1,55 +1,75 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
-function MyPage() {
+function MyPage({isLogin}) {
 
     const moveToHome = () => {
         window.location.replace('/');
     }
 
+    const nicknameDubleCheck = () => {
+        // axios.get(`https://localhost`)
+    }
+
+
     return (
         <>
             MyPage
-            <div>
+            {
+                isLogin === false 
+                ?
+                <>
+                <div> 로그인이 필요한 서비스입니다 </div>
                 <div>
-                    <input type='text' placeholder='이메일' />
+                    <Link to='/login'>로그인페이지로 이동</Link>
                 </div>
+                </>
+                :
+            <>
                 <div>
                     <div>
-                        <input type='text' placeholder='닉네임' />
-                    </div>
-                    <button>중복확인</button>
-                </div>
-                <div>
-                    <div>
-                        <div>
-                            <input type='text' placeholder='비밀번호' />
-                        </div>
-                        <div>
-                            비밀번호 형식이 올바르지 않습니다
-                        </div>
+                        <input type='text' placeholder='이메일' />
                     </div>
                     <div>
                         <div>
-                            <input type='text' placeholder='비밀번호 확인' />
+                            <input type='text' placeholder='닉네임' />
                         </div>
-                        <div>
-                            비밀번호와 일치하지 않습니다
-                        </div>
+                        <button>중복확인</button>
                     </div>
                     <div>
-                        소셜로그인은 비밀번호 변경이 되지 않습니다
+                        <div>
+                            <div>
+                                <input type='text' placeholder='비밀번호' />
+                            </div>
+                            <div>
+                                비밀번호 형식이 올바르지 않습니다
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <input type='text' placeholder='비밀번호 확인' />
+                            </div>
+                            <div>
+                                비밀번호와 일치하지 않습니다
+                            </div>
+                        </div>
+                        <div>
+                            소셜로그인은 비밀번호 변경이 되지 않습니다
+                        </div>
                     </div>
+                    <button>
+                        수정
+                    </button>
                 </div>
                 <button>
-                    수정
+                    로그아웃
                 </button>
-            </div>
-            <button>
-                로그아웃
-            </button>
-            <button >
-                회원탈퇴
-            </button>
+                <button >
+                    회원탈퇴
+                </button>
+            </>
+            }
         </>
     )
 }
