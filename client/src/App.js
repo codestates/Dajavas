@@ -15,6 +15,7 @@ import Signup from "./components/Login/Signup";
 import Nav from "./components/Nav/Nav";
 import Sidebar from "./components/Sidebar/Sidebar";
 import styled from "styled-components";
+import UpdateFishList from "./components/Nav/FishBoard/UpdateFishList";
 
 const Box = styled.div`
   display: flex;
@@ -47,7 +48,8 @@ function App() {
           <Route exact path='/record' element={<BoardContent/>}/>
           <Route exact path='/errorpage' element={<ErrorPage/>}/>
           <Route exact path='/login' element={<Login />}/>  
-          <Route exact path='/signup' element={<Signup />}/>            
+          <Route exact path='/signup' element={<Signup />}/> 
+          <Route exact path='/updateList' element={<UpdateFishList />} />           
         </Routes> 
       </Div>
       </Box>

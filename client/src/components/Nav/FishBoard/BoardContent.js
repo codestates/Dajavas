@@ -2,9 +2,8 @@ import React from 'react'
 import styled from 'styled-components';
 import { useState, useEffect } from 'react'
 import axios from "axios";
-import { connect } from 'react-redux'
-import { addFish } from '../../../redux/fishBoard/actions'
-import { faCommentDollar } from '@fortawesome/free-solid-svg-icons';
+
+
 
 
 const Div = styled.div`
@@ -57,11 +56,9 @@ const Span = styled.span`
 
 
 
-function BoardContent({state, addFish}) {
-     useEffect(() => {
-        console.log("rendering");
-      },[]); 
-    console.log(state, "🌸")
+function BoardContent() {
+   
+   
 
    
     axios.defaults.withCredentials = true;
@@ -94,17 +91,8 @@ function BoardContent({state, addFish}) {
 
    //* aws연결해야함 *//
    
-   // sizeHandler
-   const sizeHandler = (e) => {
-       setSize(e.target.value)
-       console.log(size)
-   }
+ 
 
-   // selectHandler
-   const handleChangeSelect = (e) => {
-        setFishName(e.target.value)
-        console.log(fishName)
-   }
 
    // ADD
    const submit = (e) => {
@@ -114,19 +102,18 @@ function BoardContent({state, addFish}) {
         alert('모두 입력해주세요')
        } else {
 
-        let body = addFish(photo, size, fishName)
-        console.log(body.payload,"************")
+      
         //console.log(record)
         // 저장되었다는 모달창 띄우자
 
         //토큰부터 보내자.. 토큰부터 보내고 포스트 요청을 받지 않나?
         //토큰인증함수가 post에는 빠져있는느낌..?    
-     /*    axios.post('https://localhost:443/fish/board/1:/userId', body.payload, {
+    /*     axios.post(`https://localhost:443/fish/board/1:/${userId}`, body.payload, {
            headers :{ authorizationtoken: 'token'} // 토큰을 집어넣자
         })
         .then(result => console.log(result))
-        .catch(error => console.log(error))     */
-        
+        .catch(error => console.log(error))     
+         */
     }
 }
 
@@ -146,14 +133,13 @@ function BoardContent({state, addFish}) {
                 <Fish>
                     <div>
                         <Span>어종 선택 </Span>
-                        <select onChange={handleChangeSelect}>
+                        <select onChange={(e)=>setFishName(e.target.value)}>
                             {fishList.map((el,idx) => <option value={el} key={idx}>{el}</option>)}
-
                         </select>
                     </div>
                     <div>     
                         <Span>크기</Span>
-                        <input type='text' onChange={sizeHandler}></input><Span>cm</Span>
+                        <input type='text' onChange={(e)=>setSize(e.target.value)}></input><Span>cm</Span>
                     </div>
                 </Fish>
                     <button>기록 저장</button>
@@ -163,19 +149,6 @@ function BoardContent({state, addFish}) {
     )
 }
 
-const mapStateToProps = (state) => {
-    console.log(state,'state')
-    return {
-        state: state.board
-    }
-}
 
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addFish: (photo, size, fishName) => dispatch(addFish(photo, size, fishName))
-         
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(BoardContent)
+export default BoardContent

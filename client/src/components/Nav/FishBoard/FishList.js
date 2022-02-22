@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from 'styled-components';
-import photo from '../../../img/월척.png'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
-import  { axiosFishBoard }  from '../../../redux'
-import { useEffect } from 'react'
+import axios from 'axios';
+// import  { axiosFishBoard }  from '../../../redux'
+import UpdateFishList from './UpdateFishList'; 
 
 
 const Div = styled.div`
@@ -19,49 +20,60 @@ const Img = styled.img`
 
 
 function FishList(props) {
-    console.log(props.axiosFishBoard,"+_+_+_+_+_+_+_")
-    console.log(props.axiosFishBoard.payload)
-    
-    useEffect(() => {
-        props.axiosFishBoard()
-    },[])
+    console.log(props, '프롭스')
+    const {fish_name, src, size, createdAt, id, ranked} = props
+  
+   
+    // 수정
+    const update = () => {
+        console.log('수정')
+     /*    axios.update(`https://localhost:443/fish/board/${userId}`, {
+            headers :{ authorizationtoken: '토큰담기(redux)'}
+        })
+        .then(result => console.log(result))
+        .catch(err => console.log(err)) */
+    }
 
-    
+    //삭제
+    const deleteList = () => {
+        console.log('삭제')
+      /*   axios.delete(`https://localhost:443/fish/board/${userId}`, {
+        headers :{ authorizationtoken: '토큰담기(redux)'}
+        })
+        .then(result => console.log(result))
+        .catch(err => console.log(err)) */
+    }
 
     return (
         <Div>
-            <Img src={photo} />
+          
+            <Img src={src} />  
             <div>
-                <span>어종 선택 </span>
-                <select>
-                    <option>도다리</option>
-                    <option>광어</option>
-                    <option>돔</option>
-                    <option>우럭</option>
-                    <option>도다리</option>
-                </select>
+                <span>{fish_name}</span> 
+              
             </div>    
-            <div>크기</div>
-            <div>날짜</div>
-            <div>랭킹</div>
+            <div>{size}cm</div> 
+            <div>{createdAt}</div> 
+            <div>{ranked}위</div> 
             <div>
-                <button>수정</button>
-                <button>삭제</button>
+                <Link to='/updateList'><button onClick={update}>수정</button></Link>
+                <button onClick={deleteList}>삭제</button>
             </div>
+    
         </Div>
        
     )
 }
-const mapStateToProps = (state) => {
-    console.log(state, "🤡")
-    return {
-        state
-    }
-}
+// const mapStateToProps = (state) => {
+//     console.log(state, "🤡")
+//     return {
+//         state
+//     }
+// }
 
-const mapDispatchToProps = (dispatch) =>  {    
-   return {
-           axiosFishBoard: () => dispatch(axiosFishBoard)
-        }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(FishList)
+// const mapDispatchToProps = (dispatch) =>  {    
+//    return {
+//            axiosFishBoard: () => dispatch(axiosFishBoard)
+//         }
+// }
+export default /* connect(mapStateToProps,mapDispatchToProps)(FishList) */ FishList
