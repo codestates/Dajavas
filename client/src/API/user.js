@@ -1,4 +1,3 @@
-import { authorizationCodeGrant } from 'spotify-web-api-node/src/server-methods';
 import api from './index';
 
 const userApi = {
@@ -10,7 +9,7 @@ const userApi = {
     kakao: (authorizationCode) => {
         return api.post(
             '/user/login/social', //일반 로그인, 구글과 구분되게 /user/login/kakao 로 바꾸면 어떨까요
-            {authorizationCode},
+            { authorizationCode },
             {
                 headers: {
                     'Content-Type': "application/json",
@@ -21,7 +20,7 @@ const userApi = {
     google: (authorizationCode) => {
         return api.post(
             '/user/login/social', //'user/login/google
-            {authorizationCode},
+            { authorizationCode },
             {
                 headers: {
                     'Content-Type': 'application/json',
@@ -36,9 +35,9 @@ const userApi = {
         const res = await api.get(`/user/logout/${login_method}/${userId}`)
     },
     //이메일 중복검사
-    checkEmail: (email) => api.get(`/user/emailcheck/${email}`),
+    checkEmail: (email) => api.get(`/user/emailcheck?email=${email}`),
     //닉네임 중복검사
-    checkNickName: (nickname) => api.get(`/user/namecheck/${nickname}`),
+    checkNickName: (nickname) => api.get(`/user/namecheck?nickname=${nickname}`),
 };
 
 export default userApi;

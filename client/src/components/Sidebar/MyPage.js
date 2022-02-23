@@ -1,22 +1,27 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import mypageApi from '../../API/mypage';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import {
+    updateInfoAction,
+    confirmModalOnAction,
+    modalOffAction
+} from '../../redux/store/actions';
 
-function MyPage({isLogin}) {
-
-    const moveToHome = () => {
-        window.location.replace('/');
-    }
-
-    const nicknameDubleCheck = () => {
-        // axios.get(`https://localhost`)
-    }
-
-
+function MyPage({type}) {
+    const [errorMessage, setErrorMessage] = useState('');
+    const [inputValue, setInputValue] = useState({
+        password:'',
+        passwordCheck:''
+    })
+    
     return (
         <>
             MyPage
-            {
+            {/* {
                 isLogin === false 
                 ?
                 <>
@@ -25,11 +30,11 @@ function MyPage({isLogin}) {
                     <Link to='/login'>로그인페이지로 이동</Link>
                 </div>
                 </>
-                :
+                : */}
             <>
                 <div>
                     <div>
-                        <input type='text' placeholder='이메일' />
+                        <input type='text' placeholder='이메일' value='a@gmail.com'/>
                     </div>
                     <div>
                         <div>
@@ -69,7 +74,7 @@ function MyPage({isLogin}) {
                     회원탈퇴
                 </button>
             </>
-            }
+            {/* } */}
         </>
     )
 }

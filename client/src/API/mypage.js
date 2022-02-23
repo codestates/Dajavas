@@ -1,30 +1,31 @@
 import api from './index';
 
-const mypage = {
+const mypageApi = {
     //마이페이지 유저정보가져오기
-    getUserInfo: (userId, token) => {
-        return api.get(`/user/mypage/${userId}`, {
+    getUserInfo: (email, accessToken) => {
+        return api.get(`/user/mypage?email=${email}`, {
             headers: {
-                AuthorizationToken: token
+                'AuthorizationToken': accessToken
             }
         })
     },
     //마이페이지 유저정보변경
-    //axios.put(`/user/mypage/login_method/userId`, {nickName: a, password: 123})
-    modifyUserInfo: (userId, login_method, token, formData) => {
+    //axios.put(`/user/mypage/login_method/email`, {nickName: a, password: 123})
+    modifyUserInfo: (email, login_method, accessToken, formData) => {
         console.log('api 요청시 formData', formData);
-        return api.put(`/user/mypage/${login_method}/${userId}`, formData, {
+        return api.put(`/user/mypage/${login_method}/${email}`, formData, {
             headers: {
-                AuthorizationToken: token
+               'AuthorizationToken': accessToken
             }
         });
     },
     //마이페이지 회원탈퇴
-    deleteUserInfo: (userId, login_method, token) => {
-        return api.delete(`/user/mypage/${login_method}/${userId}`, {
+    deleteUserInfo: (email, login_method, accessToken) => {
+        return api.delete(`/user/mypage/${login_method}/${email}`, {
             headers: {
-                AuthorizationToken: token
+                'AuthorizationToken': accessToken
             }
         })
     }
 }
+export default mypageApi;

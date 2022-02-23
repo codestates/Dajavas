@@ -41,7 +41,7 @@ function Signup() {
     const handleSignupInputChange = debounce(async (e) => {
         const { name, value } = e.target;
         setInputValue({...inputValue, [name]: value});
-
+        // console.log('제대로 입력값이',inputValue)
         if(name === 'email') {
             const emailVal = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i.test(value);
             setValidated({...validated, [name]: emailVal});
@@ -90,10 +90,10 @@ function Signup() {
             }
         }
         
-    }, 200);
+    });
 
     const handleSignup = async (e) => {
-        e.prevenetDefault(); //에러메시지 1초만에 사라지는 것 방지
+        // e.prevenetDefault(); //에러메시지 1초만에 사라지는 것 방지
         const valResult = Object.values(validated).every((el) => {return el === true});
         if(valResult){
             const signInputValue = {...inputValue};
@@ -124,10 +124,10 @@ function Signup() {
     return (
         <>
             Signup
-            <div className='SignupInputContainer'>
+            <form className='SignupInputContainer'>
                 <div>
                     <div>
-                        <input name='email' type='text' placeholder='이메일' onChange={handleSignupInputChange}/>
+                        <input name='email' type='text' autoComplete='username' placeholder='이메일' onChange={handleSignupInputChange}/>
                     </div>
                 </div>
                 <div>
@@ -137,19 +137,17 @@ function Signup() {
                 </div>
                 <div>
                     <div>
-                        <input name='password' type='text' placeholder='비밀번호' />
+                        <input name='password' type='text' autoComplete='new-password' placeholder='비밀번호' />
                     </div>
                 </div>
                 <div>
                     <div>
-                        <input name='passwordCheck' type='text' placeholder='비밀번호 확인' />
+                        <input name='passwordCheck' type='text' autoComplete='current-password' placeholder='비밀번호 확인' />
                     </div>
                 </div>
-                <div>
-                    <div>
-                        {errorMessage}
-                    </div>
-                </div>
+            </form>
+            <div>
+                {errorMessage}
             </div>
             <button className='generalSignup' onClick={handleSignup}>회원가입</button>
             <button className='google' onClick={handleSignGoogle}>
