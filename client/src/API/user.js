@@ -1,4 +1,4 @@
-import { authorizationCodeGrant } from 'spotify-web-api-node/src/server-methods';
+
 import api from './index';
 
 const userApi = {
@@ -36,7 +36,7 @@ const userApi = {
         const res = await api.get(`/user/logout/${login_method}/${userId}`)
     },
     //이메일 중복검사
-    checkEmail: (email) => api.get(`/user/emailcheck/${email}`),
+    checkEmail: (email) => api.get(`/user/emailcheck?email=${email}`),
     //닉네임 중복검사
     checkNickName: (nickname) => api.get(`/user/namecheck/${nickname}`),
 };

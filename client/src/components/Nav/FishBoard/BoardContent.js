@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import { useState, useEffect } from 'react'
 import axios from "axios";
+import {connect} from 'react-redux'
 
 
 
@@ -56,20 +57,20 @@ const Span = styled.span`
 
 
 
-function BoardContent() {
-   
+function BoardContent({userInfo}) {
+  
    
 
    
     axios.defaults.withCredentials = true;
     
     // 기록 하는곳 //* 기록을 입력해줄때 ranked를 왜써줬지..?
-
-    const [photo, setPhoto] = useState(null)
-    const [size, setSize] = useState(null)
+    const [record, setRecord] = useState({})
+    const [photo, setPhoto] = useState('')
+    const [size, setSize] = useState('')
     
     const fishList = ['선택해주세요','광어', '황돔', '우럭', '농어', '불락', '넙치', '개서대']
-    const [fishName, setFishName] = useState(null)
+    const [fishName, setFishName] = useState('')
     const [error, setError] = useState('모두 기록해주세요')
   
    
@@ -89,7 +90,7 @@ function BoardContent() {
         setPhoto(imageFile.name)
     }
 
-   //* aws연결해야함 *//
+//* aws연결해야함 *//
    
  
 
@@ -100,20 +101,22 @@ function BoardContent() {
        if(!photo || !fishName || !size) {
         console.log(error)
         alert('모두 입력해주세요')
-       } else {
+       } else {    
+        
+//* 저장되었다는 모달창 띄우자 그러고나면 네비게이트로 /record로 보내주기
 
-      
-        //console.log(record)
-        // 저장되었다는 모달창 띄우자
-
-        //토큰부터 보내자.. 토큰부터 보내고 포스트 요청을 받지 않나?
-        //토큰인증함수가 post에는 빠져있는느낌..?    
-    /*     axios.post(`https://localhost:443/fish/board/1:/${userId}`, body.payload, {
-           headers :{ authorizationtoken: 'token'} // 토큰을 집어넣자
+        setRecord({ 
+            fish_name: fishName,
+            src: photo,
+            size: size
+        })   
+            
+        axios.post(`https://localhost:443/fish/board/1:/${userInfo.id}`, record, {
+           headers :{ authorizationtoken: userInfo.accessToken} // 토큰을 집어넣자
         })
         .then(result => console.log(result))
-        .catch(error => console.log(error))     
-         */
+        .catch(error => console.log(error))      
+         
     }
 }
 
@@ -149,5 +152,18 @@ function BoardContent() {
     )
 }
 
+const mapStateToProps = (state) => {
+     console.log(state,'++++++++++++++++++++++++') 
+      return {
+        userInfo: state.userReducer, // 여기서 user의 id를 뽑아와야한다.
+        
+     } 
+ }
 
-export default BoardContent
+const mapDispatchToProps = {
+   
+}
+
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(BoardContent)

@@ -50,9 +50,9 @@ function Login({type}) {
         e.preventDefault();
         const valResult = validated.email && validated.password;
         if(valResult){
-            const signInputValue = {...inputValue};
+            const loginInputValue = {...inputValue};
             try{
-                const res = await userApi.login(signInputValue);
+                const res = await userApi.login(loginInputValue);
                 if(res.status === 200){
                     dispatch(loginAction(res.data));
                     navigate('/home', {replace: true})
@@ -81,14 +81,16 @@ function Login({type}) {
             <div className='loginInputContainer'>
                 login
                 <div>
-                    <input 
+                    <input
+                        name='email' 
                         type='text' 
                         placeholder='이메일'
                         onChange={handleLoginInputValue}
                     />
                 </div>
                 <div>
-                    <input 
+                    <input
+                        name='password' 
                         type='text' 
                         placeholder='비밀번호'
                         onChange={handleLoginInputValue}

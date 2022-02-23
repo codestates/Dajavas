@@ -20,10 +20,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-<<<<<<< HEAD
-//app.use(cors());
-=======
->>>>>>> 1a94ed7eefcd8360fd33272e23537138a079f4ac
 app.use(cors({
   origin: ['https://localhost:3000'],
   credentials: true,

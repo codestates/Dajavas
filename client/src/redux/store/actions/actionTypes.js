@@ -6,3 +6,10 @@ export const UPDATE_INFO = 'UPDATE_INFO';
 //Modal
 export const CONFIRM_MODAL_ON = 'CONFIRM_MODAL_ON';
 export const MODAL_OFF = 'MODAL_OFF';
+
+//FishBoard
+export const FISH_BOARD= 'FISH_BOARD'
+export const FISH_BOARD_REQUEST= 'FISH_BOARD_REQUEST'
+export const FISH_BOARD_SUCCESS= 'FISH_BOARD_SUCCESS'
+export const FISH_BOARD_FAILURE= 'FISH_BOARD_FAILURE'
+
