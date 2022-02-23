@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
   cors({
-    origin: "https://localhost:3000",
+    origin: ["https://localhost:3000"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "OPTIONS"],
   })
