@@ -11,7 +11,7 @@ const Div = styled.div`
 `
 
 
-const Sidebar = ({ width=280, children }) => {
+const Sidebar = ({ width=280, isLogin, userInfo }) => {
     const [isOpen, setOpen] = useState(false);
     const [xPosition, setX] = useState(width);
     const side = useRef();
@@ -51,14 +51,19 @@ const Sidebar = ({ width=280, children }) => {
                 <FontAwesomeIcon icon={faBars}
                     className={styles.icon}
                     onClick={() => toggleMenu()}
-                    className={styles.button} >
-                {isOpen ? 
+                    className={styles.button} 
+                >
+                {/* {isOpen ? 
                 <span>X</span> : <img src="images/avatar.png" alr="contact open button" className={styles.openBtn}/>
-                }
+                } */}
                 </FontAwesomeIcon>
-                <div>
-                    <Link to='/login'>로그인</Link>
-                </div>
+                {
+                  isLogin === true ?
+                  <div>{userInfo.nickname}님</div> :
+                  <div>
+                      <Link to='/login'>로그인</Link>
+                  </div>
+                }
                 <div>
                     <Link to='/mypage'>마이페이지</Link>
                 </div>
