@@ -4,13 +4,14 @@ import { useState, useEffect } from 'react'
 import axios from "axios";
 import {connect} from 'react-redux'
 import Modal from '../../Modal/Modal'
+import { useNavigate } from "react-router-dom"
 
 
 
 const Div = styled.div`
    /*  background-color: #ABCCFF; */
-    height:70vh;
-    width:70vw; 
+    height:60vh;
+    width:50vw; 
 `
 const Day = styled.div`
     border: dotted black 2px;
@@ -54,34 +55,41 @@ const Fish = styled.div`
 const Span = styled.span`
     margin: 0.3rem;
 `
+const Btn = styled.button`
+    background-color: #4087FE;
+    text-decoration: none;
+    border: none;
+    padding: 20px;
+    color: white;
+    border-radius: 30px;
+    cursor: grab;
 
+`
 
+function UpdateBoardContent({targetFish,userInfo,navigation}) {
+   console.log(targetFish,userInfo)
 
-function BoardContent({userInfo}) {
-  
-   
-
-   
+    const navigate = useNavigate();
     axios.defaults.withCredentials = true;
     
     // 기록 하는곳 //* 기록을 입력해줄때 ranked를 왜써줬지..?
-    const [record, setRecord] = useState({})
-    const [photo, setPhoto] = useState('')
-    const [size, setSize] = useState('')
+    const [record, setRecord] = useState(targetFish)
+    const [photo, setPhoto] = useState(targetFish.src)
+    const [size, setSize] = useState(targetFish.size)
     
-    const fishList = ['선택해주세요','광어', '황돔', '우럭', '농어', '불락', '넙치', '개서대']
-    const [fishName, setFishName] = useState('')
-    const [error, setError] = useState('모두 기록해주세요')
+    const fishList = ['변경안함','광어', '황돔', '우럭', '농어', '불락', '넙치', '개서대']
+    const [fishName, setFishName] = useState(targetFish.fish_name)
+
   
    
    
-    // 오늘날짜
+   /*  // 오늘날짜
     let now = new Date()
     let year = now.getFullYear()
     let todayMonth = now.getMonth() + 1
     let today = now.getDate()
     const week = ['일', '월', '화', '수', '목', '금', '토']; 
-    let dayOfWeek = week[now.getDay()];
+    let dayOfWeek = week[now.getDay()]; */
 
     // 파일 업로드
     const firstImgHandle = (event) => {
@@ -95,48 +103,54 @@ function BoardContent({userInfo}) {
  
 
 
-   // ADD
+   // 수정
    const submit = (e) => {
-       e.preventDefault()
-       if(!photo || !fishName || !size) {
-        console.log(error)
-        alert('모두 입력해주세요')
-       } else {    
-        
-//* 저장되었다는 모달창 띄우자 그러고나면 네비게이트로 /record로 보내주기
+        e.preventDefault()
 
-        setRecord({ 
-            fish_name: fishName,
-            src: photo,
-            size: size,
-            userId: userInfo.id
+        if(!photo || !fishName || !size) {          
+            alert('모두 입력해주세요')
+       }   
+        if(fishName === '변경안함') {
+            setRecord({
+                ...record, 
+                src: photo,
+                size: size,
+                ranked: 1
+            //유저 아이디 보내줄건지...    
+            })    
+        }else {        
+//* 저장되었다는 모달창 띄우자 그러고나면 네비게이트로 /record로 보내주기
+            setRecord({
+                ...record, 
+                fish_name: fishName,
+                src: photo,
+                size: size,
+                ranked: 1
+        //유저 아이디 보내줄건지...    
         })   
             
-        axios.post(`https://localhost:443/fish/board/1:/${userInfo.id}`, record, {
+        /* axios.post(`https://localhost:443/fish/board/1:/${userInfo.id}`, record, {
            headers :{ authorizationtoken: userInfo.accessToken} // 토큰을 집어넣자
         })
         .then(result => console.log(result))
-        .catch(error => console.log(error))      
+        .catch(error => console.log(error))  */     
          
     }
 }
-
-
+console.log(record,"수정된 정보이다.")
     return (
-        <>
-        <Modal text='내가 잡은 물고기를 기록해보아요'/>
-        <h1>기록</h1>
         <Div>
             <form  onSubmit={submit} >
-                <Day>
-                    {year}년 {todayMonth}월 {today}일 {dayOfWeek}요일
-                </Day>
-                <File>    
+                <File> 
+                    <div>선택한 사진 주소: {photo}</div>   
                     <Photo>사진첨부</Photo>
                     <Input type='file' name='file' accept='image/*' onChange={firstImgHandle}/>    
                 </File>
                 <Fish>
                     <div>
+                        <div>
+                            내가 선택한 어종: {fishName}
+                        </div>
                         <Span>어종 선택 </Span>
                         <select onChange={(e)=>setFishName(e.target.value)}>
                             {fishList.map((el,idx) => <option value={el} key={idx}>{el}</option>)}
@@ -144,28 +158,23 @@ function BoardContent({userInfo}) {
                     </div>
                     <div>     
                         <Span>크기</Span>
-                        <input type='text' onChange={(e)=>setSize(e.target.value)}></input><Span>cm</Span>
+                        <input type='text' value={size} onChange={(e)=>setSize(e.target.value)}></input><Span>cm</Span>
                     </div>
                 </Fish>
-                    <button>기록 저장</button>
+                    <Btn onClick={() => navigate(-1)}>기록 저장</Btn>
             </form>   
         </Div>
-       </> 
     )
 }
 
 const mapStateToProps = (state) => {
-     console.log(state,'++++++++++++++++++++++++') 
-      return {
-        userInfo: state.userReducer, // 여기서 user의 id를 뽑아와야한다.
-        
-     } 
- }
-
-const mapDispatchToProps = {
-   
+    console.log(state,'++++++++++++++++++++++++') 
+     return {
+      targetFish: state.updateFishReducer.data,
+      userInfo: state.userReducer    
+    } 
 }
 
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(BoardContent)
+export default connect(mapStateToProps)(UpdateBoardContent)

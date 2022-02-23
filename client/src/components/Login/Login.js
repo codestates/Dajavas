@@ -33,6 +33,7 @@ function Login({type}) {
     const handleLoginInputValue = debounce(async (e) => {
         const {name, value} = e.target;
         setInputValue({...inputValue, [name]: value});
+        // console.log('버튼 클릭시 인풋 데이터 모음',inputValue);
         if(name === 'email'){
             const emailVal = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i.test(value);
             setValidated({...validated, [name]: emailVal})
@@ -51,13 +52,20 @@ function Login({type}) {
         const valResult = validated.email && validated.password;
         if(valResult){
             const loginInputValue = {...inputValue};
+            console.log("로그인 인풋벨류",loginInputValue)
             try{
                 const res = await userApi.login(loginInputValue);
+                // console.log('인풋벨류는??',loginInputValue)
+                
+                console.log('응답은 뭐라고 왔나?', res.data);
                 if(res.status === 200){
+                    // console.log('로그인시 저장된 데이터', res);
                     dispatch(loginAction(res.data));
+                    // console.log('로그인 되고 있나요?',isLogin);
                     navigate('/home', {replace: true})
                 }
             } catch (err){
+                console.log(err);
                 setErrorMessage('입력하신 내용을 다시 확인해주세요');
             }
         }
@@ -80,22 +88,26 @@ function Login({type}) {
         <>
             <div className='loginInputContainer'>
                 login
-                <div>
-                    <input
-                        name='email' 
-                        type='text' 
-                        placeholder='이메일'
-                        onChange={handleLoginInputValue}
-                    />
-                </div>
-                <div>
-                    <input
-                        name='password' 
-                        type='text' 
-                        placeholder='비밀번호'
-                        onChange={handleLoginInputValue}
-                    />
-                </div>
+                <form id='login'>
+                    <div>
+                        <input 
+                            name='email'
+                            type='text' 
+                            placeholder='이메일'
+                            autoComplete='username'
+                            onChange={handleLoginInputValue}
+                        />
+                    </div>
+                    <div>
+                        <input 
+                            name='password'
+                            type='password' 
+                            placeholder='비밀번호'
+                            autoComplete='current-password'
+                            onChange={handleLoginInputValue}
+                        />
+                    </div>
+                </form>
                 <button onClick={handleLogin}>로그인</button>
             </div>
             <button className='google' onClick={handleLoginGoogle}>

@@ -14,8 +14,9 @@ import Login from './components/Login/Login'
 import Signup from "./components/Login/Signup";
 import Nav from "./components/Nav/Nav";
 import Sidebar from "./components/Sidebar/Sidebar";
+import UpdateFish from "./components/Nav/FishBoard/UpdateFish";
 import styled from "styled-components";
-import UpdateFishList from "./components/Nav/FishBoard/UpdateFishList";
+
 import axios from "axios";
 import { useState } from "react";
 
@@ -84,7 +85,8 @@ function App() {
           <Route exact path='/record' element={<BoardContent/>}/>
           <Route exact path='/errorpage' element={<ErrorPage/>}/>
           <Route exact path='/login' element={<Login isLogin={isLogin} userInfo={userInfo} loginState={loginState}/>}/>  
-          <Route exact path='/signup' element={<Signup userInfo={userInfo}/>}/>            
+          <Route exact path='/signup' element={<Signup userInfo={userInfo}/>}/> 
+          <Route exact path='/updatefish' element={<UpdateFish/>}/>       
         </Routes> 
       </Div>
       </Box>

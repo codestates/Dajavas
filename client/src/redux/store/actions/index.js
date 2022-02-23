@@ -7,7 +7,10 @@ import {
     FISH_BOARD, 
     FISH_BOARD_REQUEST, 
     FISH_BOARD_SUCCESS,
-    FISH_BOARD_FAILURE
+    FISH_BOARD_FAILURE,
+    TARGET_FIND,
+    UPDATE_FISH
+    
 } from './actionTypes';
 import axios from 'axios';
 
@@ -69,3 +72,16 @@ export const fishBoard = () => {
     } 
 }
 
+// UpdateFish
+export const targetFind = (fish) => {
+    return {
+        type: TARGET_FIND,
+        payload: fish
+    }
+}
+
+export const updateFish = () => {
+    return {
+        type: UPDATE_FISH
+    }
+}

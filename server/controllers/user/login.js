@@ -18,9 +18,11 @@ module.exports = {
   // }
   post: async (req, res) => {
     const { email, password } = req.body;
+    console.log('로그인시 보낸 리퀘스트 바디',req.body)
     const userInfo = await user.findOne({
       where: { email, password },
     });
+    console.log('로그인 시 받아온 데이터', userInfo);
     if (!userInfo) {
       // 로그인 실패시
       return res.status(401).json({ message: "login err" });
@@ -29,10 +31,10 @@ module.exports = {
     return res.status(200).json({
       data: {
         accessToken: await accessToken(email),
-        id: userInfo.id,
-        email: userInfo.email,
-        nickname: userInfo.nickname,
-        login_method: userInfo.login_method,
+        id: userInfo.dataValues.id,
+        email: userInfo.dataValues.email,
+        nickname: userInfo.dataValues.nickname,
+        login_method: userInfo.dataValues.login_method,
       },
     });
   },

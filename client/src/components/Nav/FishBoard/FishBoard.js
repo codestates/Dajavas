@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import axios from 'axios';
 import photo from '../../../img/월척.png'
 import { fishBoard }from '../../../redux/store/actions/index'
+import Modal from '../../Modal/Modal'
 
 
 const Div = styled.div`
@@ -70,6 +71,8 @@ function FishBoard({userInfo, myFishBoard, fishBoard}) {
       {fish_name: '도다리',ranked:57, src: photo, size: 5, createdAt:'20220220', id:11,  }
     ]}
     return (
+        <>
+        <Modal text='회원님이 잡은 물고기 목록을 볼 수 있습니다.'/>
         <Div>   
             <Title>
             <h1>나의 월척~</h1>
@@ -78,6 +81,7 @@ function FishBoard({userInfo, myFishBoard, fishBoard}) {
             {result.data.map(el => <FishList key={el.id} {...el} result={result}/>)}
            {loadingOrMyFishList}
         </Div>
+        </>
     )
 }
 
