@@ -8,7 +8,7 @@ const func = require("../function");
 module.exports = {
   get: async (req, res) => {
     // 개인정보 조회
-    const validate = await func.validateToken(req.headers.Authorizationtoken);
+    const validate = await func.validateToken(req.headers.authorizationtoken);
     const userInfo = await func.checkUser(req.query.email);
     try {
       if (!validate) {
@@ -29,7 +29,7 @@ module.exports = {
   put: async (req, res) => {
     // 개인정보 수정
     const { nickname, password, email } = req.body;
-    const validate = await func.validateToken(req.headers.Authorizationtoken);
+    const validate = await func.validateToken(req.headers.authorizationtoken);
     try {
       if (!validate) {
         return res.status(401).json({ message: "not authorized" });

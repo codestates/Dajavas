@@ -5,7 +5,7 @@ const func = require("../function");
 module.exports = {
   post: async (req, res) => {
     //console.log("--------------", req);
-    const validate = await func.validateToken(req.headers.Authorizationtoken);
+    const validate = await func.validateToken(req.headers.authorizationtoken);
     if (!validate) {
       res.status(401).json({ message: "not authorized" });
     }

@@ -25,6 +25,26 @@ module.exports = {
           user_id: 2,
           fish_id: 5,
         },
+        {
+          user_id: 2,
+          fish_id: 6,
+        },
+        {
+          user_id: 2,
+          fish_id: 7,
+        },
+        {
+          user_id: 2,
+          fish_id: 8,
+        },
+        {
+          user_id: 2,
+          fish_id: 9,
+        },
+        {
+          user_id: 2,
+          fish_id: 10,
+        },
       ],
       {}
     );
