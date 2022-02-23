@@ -8,7 +8,7 @@ module.exports = {
         {
           nickname: "kimcoding",
           email: "kimcoding@gmail.com",
-          password: "1234",
+          password: "abc1234",
           login_method: 0,
         },
         {
