@@ -72,7 +72,7 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
     const navigate = useNavigate();
     axios.defaults.withCredentials = true;
     
-    // 기록 하는곳 //* 기록을 입력해줄때 ranked를 왜써줬지..?
+    // 기록 하는곳 
     const [record, setRecord] = useState(targetFish)
     const [photo, setPhoto] = useState(targetFish.src)
     const [size, setSize] = useState(targetFish.size)

@@ -2,6 +2,9 @@ import React from 'react'
 import styled from 'styled-components';
 import RankingList from './RankingList';
 import photo from '../../../img/월척.png'
+import { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import axios from 'axios';
 
 
 const Data = styled.div`
@@ -36,20 +39,42 @@ const MyRank = styled.div`
     padding: 1rem;
     margin-bottom: 1rem;
 `
+// email이 필요한가?? 그리고 닉네임을 반환해야할것같다
 
-function Ranking() {
+function Ranking({userInfo}) {
+    console.log(userInfo.email)
+    const fishList = ['광어', '황돔', '우럭', '농어', '불락', '넙치', '개서대']
+    const [fishName, setFishName] = useState("")
+    const [selectedFishData, setSelectedFishData] = useState("") 
+
+//닉네임이 안왔다., 그리고 헤더스에 뭐보내줄건 없는지 확인
+    const getRank = () => {
+        console.log(fishName,'을 선택했습니다.')
+        axios.get(`https://localhost:443/ranking/fishName?fishName=${fishName}&&email=${userInfo.email}`)
+        .then(result => {
+            console.log(result.data,'서버로부터 데이터 잘 받아져왔는지')
+            setSelectedFishData(result.data)
+            console.log(selectedFishData, "랭킹별 데이터")
+        })
+        .catch(error => console.log(error))
+    }
+
+    useEffect(() => {
+       getRank()
+    }, [fishName])
+
+
+
+
     return (
         <div>
             <Box>
                 <Data>
-                    <span>어종 선택 </span>
-                    <select>
-                        <option>도다리</option>
-                        <option>광어</option>
-                        <option>돔</option>
-                        <option>우럭</option>
-                        <option>도다리</option>
+                    <span>어종 선택: </span>
+                    <select onChange={(e)=>setFishName(e.target.value)}>
+                            {fishList.map((el,idx) => <option value={el} key={idx}>{el}</option>)}
                     </select>
+                    
                 </Data>
             </Box>    
             <Box>  
@@ -90,4 +115,11 @@ function Ranking() {
     )
 }
 
-export default Ranking
+const mapStateToProps = (state) => {
+    console.log(state,'++++++++++++++++++++++++') 
+     return {
+      userInfo: state.userReducer    
+    } 
+}
+
+export default connect(mapStateToProps)(Ranking)
