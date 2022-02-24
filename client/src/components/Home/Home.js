@@ -4,6 +4,7 @@ import Footer from '../Footer/Footer'
 //import Sidebar from '../Sidebar/Sidebar';
 import styled from 'styled-components';
 import media from "styled-media-query";
+import LoadingPage from '../../LoadingPage'
 
 // const Div = styled.div`
 //     background-color: #ABCCFF;
@@ -37,11 +38,11 @@ const HomeContainer = styled.div`
 
 
 function Home() {
-
+    
     return (
         <HomeContainer>
             <div>
-                아에이오우
+                
             </div>
         </HomeContainer>
 

@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import FishList from './FishList'
 import styled from 'styled-components';
 import {connect} from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios';
 import photo from '../../../img/월척.png'
 import { fishBoard }from '../../../redux/store/actions/index'
 import Modal from '../../Modal/Modal'
+import LoadingPage from '../../../LoadingPage';
 
 
 const Div = styled.div`
@@ -31,8 +32,12 @@ const Btn = styled.button`
 
 
 function FishBoard({userInfo, myFishBoard, fishBoard}) {
+    // 로딩창
+    const [loading, setLoading] = useState(false)
+   
     useEffect(() => {
         fishBoard()
+        setTimeout(() => {setLoading(!false)}, 3000)        
     },[]) 
     console.log(userInfo, myFishBoard, fishBoard, 'FishBoard props')
     
@@ -71,6 +76,8 @@ function FishBoard({userInfo, myFishBoard, fishBoard}) {
       {fish_name: '도다리',ranked:57, src: photo, size: 5, createdAt:'20220220', id:11,  }
     ]}
     return (
+        <div>
+        {loading === false ? (<><LoadingPage /></>) : (
         <>
         <Modal text='회원님이 잡은 물고기 목록을 볼 수 있습니다.'/>
         <Div>   
@@ -82,6 +89,8 @@ function FishBoard({userInfo, myFishBoard, fishBoard}) {
            {loadingOrMyFishList}
         </Div>
         </>
+        )}
+    </div>
     )
 }
 
