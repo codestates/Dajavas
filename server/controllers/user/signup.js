@@ -12,9 +12,9 @@ module.exports = {
   post: async (req, res) => {
     const { email, password, nickname, login_method } = req.body;
 
-    user.findOrCreate({
+    const result = user.findOrCreate({
       where: { email, nickname, password, login_method },
     });
-    res.status(201).json({ message: `${email}` });
+    res.status(201).json({ message: `${result}` });
   },
 };
