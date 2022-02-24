@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import media from "styled-media-query";
 import debounce from "lodash/debounce";
@@ -10,6 +10,7 @@ import { RiKakaoTalkFill } from "react-icons/ri"; //카카오 아이콘
 
 import { loginAction } from "../../redux/store/actions";
 import userApi from "../../API/user";
+import userReducer from "../../redux/store/reducers/userReducer/userReducer";
 
 function Login({ type }) {
   const dispatch = useDispatch();
@@ -27,7 +28,8 @@ function Login({ type }) {
   });
 
   const [errorMessage, setErrorMessage] = useState("");
-  const [isOnVerification, setIsOnVerification] = useState(false); //모든항목 유효성 검사 통과여부
+
+  // const { email, nickname, isLogin, id, login_method, accessToken} = useSelector((userReducer)=>userReducer);
 
   const handleLoginInputValue = debounce(async (e) => {
     const { name, value } = e.target;
@@ -56,15 +58,18 @@ function Login({ type }) {
     if (valResult) {
       const loginInputValue = { ...inputValue };
       console.log("로그인 인풋벨류", loginInputValue);
+      // console.log('이즈로그인',isLogin)
+      // console.log('email',email)
       try {
         const res = await userApi.login(loginInputValue);
         // console.log('인풋벨류는??',loginInputValue)
 
-        console.log("응답은 뭐라고 왔나?", res.data);
+        console.log("응답은 뭐라고 왔나?", res.data.data);
         if (res.status === 200) {
           // console.log('로그인시 저장된 데이터', res);
-          dispatch(loginAction(res.data));
-          // console.log('로그인 되고 있나요?',isLogin);
+          console.log("디스패치 전", res.data.data.isLogin);
+          dispatch(loginAction(res.data.data));
+          console.log("디스패치 후", res.data.data.isLogin);
           navigate("/home", { replace: true });
         }
       } catch (err) {
@@ -78,12 +83,29 @@ function Login({ type }) {
     window.location.assign(
       `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code&state=kakao`
     );
+    /* 결과 redirect_url
+        https://localhost:3000/?
+        code=_ecjyJZfATYit-VAKVAfsZv-brL85ttUn0vtEeUnePulrBS3TMY7c5pxGHjadAj2VNnMfAopb7kAAAF_J4z1xQ
+        &
+        state=kakao
+        */
   };
 
   const handleLoginGoogle = () => {
     window.location.assign(
       `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_REST_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&state=google`
     );
+    /* 결과 redirect_url
+        https://localhost:3000/?state=google
+        &
+        code=4%2F0AX4XfWjkFb16QFmkVBDAE6FUcypyXBaxgfB61q-wfkx2a-RplVkIhRxrx3AAr_hWwyaNhg
+        &
+        scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid
+        &
+        authuser=1
+        &
+        prompt=consent
+        */
   };
 
   return (
