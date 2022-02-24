@@ -3,7 +3,7 @@ import api from "./index";
 const userApi = {
   //유저 로그인 /user/login
   login: async (info) => {
-    return (res = await api.post("/user/login", info)); //소셜로그인과 구분되게 /user/login/general
+    const res = await api.post("/user/login", info); //소셜로그인과 구분되게 /user/login/general
   },
   //유저 소셜로그인
   kakao: (authorizationCode) => {
