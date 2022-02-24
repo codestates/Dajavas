@@ -5,6 +5,7 @@ import media from 'styled-media-query';
 import debounce from 'lodash/debounce';
 import { FcGoogle } from 'react-icons/fa'; //구글 아이콘
 import { RiKakaoTalkFill } from 'react-icons/ri'; //카카오 아이콘
+import { useNavigate } from 'react-router-dom';
 
 // import {
 //     modalOffAction,
@@ -14,23 +15,18 @@ import userApi from '../../API/user';
 
 function Signup() {
 
-    const moveToHome = () => {
-        window.location.replace('/');
-    }
-    const moveToLogin = () => {
-        window.location.href='/login';
-    }
-
+    const navigate = useNavigate();
     const [inputValue, setInputValue] = useState({ //입력값
         email: '',
-        nickName: '',
+        nickname: '',
         password: '',
         passwordCheck: '',
+        login_method: 0,
     });
 
     const [validated, setValidated] = useState({ //유효성 검사 통과여부
         email: true,
-        nickName: true,
+        nickname: true,
         password: true,
         passwordCheck: true,
     });
@@ -80,9 +76,10 @@ function Signup() {
             } else {
                 setErrorMessage('비밀번호가 일치하지 않습니다.');
             }
-        } else if(name === 'nickName'){
+        } else if(name === 'nickname'){
             try {
-                const res = await userApi.checkNickName(value);
+                const res = await userApi.checkNickname(value);
+                console.log('응답 왔는가?',res)
                 res.status === 200 && setErrorMessage('');
                 // setErrorMessage('');
             } catch(err){
@@ -97,10 +94,14 @@ function Signup() {
         const valResult = Object.values(validated).every((el) => {return el === true});
         if(valResult){
             const signInputValue = {...inputValue};
+            console.log('이메일체크 삭제전',signInputValue);
             delete signInputValue.passwordCheck;
+            console.log('이메일체크 삭제후',signInputValue);
+
             try{
                 const res = await userApi.signup(signInputValue);
                 res.status === 200 && setIsOnVerification(true);
+                navigate('/home', {replace: true})
             } catch(err){
                 setErrorMessage('정보를 확인해주세요');
             }
@@ -132,17 +133,17 @@ function Signup() {
                 </div>
                 <div>
                     <div>
-                        <input name='nickName' type='text' placeholder='닉네임' onChange={handleSignupInputChange}/>
+                        <input name='nickname' type='text' autoComplete='username' placeholder='닉네임' onChange={handleSignupInputChange}/>
                     </div>
                 </div>
                 <div>
                     <div>
-                        <input name='password' type='text' autoComplete='new-password' placeholder='비밀번호' />
+                        <input name='password' type='text' autoComplete='new-password' placeholder='비밀번호' onChange={handleSignupInputChange}/>
                     </div>
                 </div>
                 <div>
                     <div>
-                        <input name='passwordCheck' type='text' autoComplete='current-password' placeholder='비밀번호 확인' />
+                        <input name='passwordCheck' type='text' autoComplete='current-password' placeholder='비밀번호 확인' onChange={handleSignupInputChange}/>
                     </div>
                 </div>
             </form>
@@ -156,10 +157,10 @@ function Signup() {
             <button className='kakao' onClick={handleSignKakao}>
                 카카오로 회원가입
             </button>
-            <button onClick={moveToHome}>
+            <button onClick={()=> navigate('/home', {replace: false})}>
                 홈으로
             </button>
-            <button onClick={moveToLogin}>로그인</button>
+            <button onClick={()=> navigate('/login', {replace: false})}>로그인</button>
         </>
     )
 }

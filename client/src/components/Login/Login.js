@@ -96,7 +96,8 @@ function Login({ type }) {
       `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_REST_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&state=google`
     );
     /* 결과 redirect_url
-        https://localhost:3000/?state=google
+        https://localhost:3000/?
+        state=google
         &
         code=4%2F0AX4XfWjkFb16QFmkVBDAE6FUcypyXBaxgfB61q-wfkx2a-RplVkIhRxrx3AAr_hWwyaNhg
         &

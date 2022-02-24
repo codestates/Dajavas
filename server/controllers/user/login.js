@@ -119,5 +119,15 @@ module.exports = {
     } catch {
       console.log("왜안되징................");
     }
+    // 로그인 성공시
+    return res.status(200).json({
+      data: {
+        accessToken: await accessToken(email),
+        id: userInfo.id,
+        email: userInfo.email,
+        nickname: userInfo.nickname,
+        login_method: userInfo.login_method,
+      },
+    });
   },
 };

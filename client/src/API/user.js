@@ -2,14 +2,14 @@ import api from "./index";
 
 const userApi = {
   //유저 로그인 /user/login
-  login: async (info) => {
-    const res = await api.post("/user/login", info); //소셜로그인과 구분되게 /user/login/general
+  login: (info) => {
+    return api.post("/user/login", info); //소셜로그인과 구분되게 /user/login/general
   },
   //유저 소셜로그인
-  kakao: (authorizationCode) => {
+  kakao: (authCode, login_method) => {
     return api.post(
-      "/user/login/social", //일반 로그인, 구글과 구분되게 /user/login/kakao 로 바꾸면 어떨까요
-      { authorizationCode },
+      "/user/login/kakao", //일반 로그인, 구글과 구분되게 /user/login/kakao 로 바꾸면 어떨까요
+      { authCode, login_method },
       {
         headers: {
           "Content-Type": "application/json",
@@ -17,10 +17,10 @@ const userApi = {
       }
     );
   },
-  google: (authorizationCode) => {
+  google: (authCode) => {
     return api.post(
-      "/user/login/social", //'user/login/google
-      { authorizationCode },
+      "/user/login/google", //'user/login/google
+      { authCode },
       {
         headers: {
           "Content-Type": "application/json",

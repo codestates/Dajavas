@@ -7,6 +7,7 @@ const initialState = {
     nickname: '',
     login_method: '',
     accessToken: '',
+    password: '',
 };
 
 const userReducer = (prevState = initialState, action) => {
@@ -18,6 +19,7 @@ const userReducer = (prevState = initialState, action) => {
                 isLogin: true,
                 ...action.payload,
             };
+            console.log('저장한 로그인상태가 변했나요?',state)
             break;
         case LOG_OUT:
             state = {...initialState};
@@ -26,6 +28,7 @@ const userReducer = (prevState = initialState, action) => {
             state = {
                 ...prevState,
                 nickname: 'action.payload.data.nickname',
+                password: 'action.payload.data.password',
             };
             break;
         default:
@@ -35,3 +38,5 @@ const userReducer = (prevState = initialState, action) => {
 };
 
 export default userReducer;
+
+//Rnr2

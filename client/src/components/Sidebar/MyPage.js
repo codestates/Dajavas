@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import mypageApi from "../../API/mypage";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import {
+  loginAction,
   updateInfoAction,
   confirmModalOnAction,
   modalOffAction,
@@ -17,6 +19,10 @@ function MyPage({ type }) {
     password: "",
     passwordCheck: "",
   });
+
+  const { isLogin, login_method } = useSelector(
+    ({ userReducer }) => userReducer
+  );
 
   return (
     <>
