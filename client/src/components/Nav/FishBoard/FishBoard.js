@@ -32,68 +32,91 @@ const Btn = styled.button`
 
 
 function FishBoard({userInfo, myFishBoard, fishBoard}) {
-    // 로딩창
+    axios.defaults.withCredentials = true;
+    
+    // 로그인 여부 userInfo.isLogin
+    console.log(userInfo, myFishBoard, fishBoard , '++++++++')
     const [loading, setLoading] = useState(false)
-   
+    const [render, rerender] = useState(false)
+
+    const start = () => {
+        if(userInfo.isLogin === true) {
+            fishBoard(userInfo.email, 1, userInfo.accessToken)
+            setTimeout(() => {setLoading(!false)}, 3000)        
+        }else{
+            setTimeout(() => {setLoading(!false)}, 3000)
+        }
+    }
+
     useEffect(() => {
-        fishBoard()
-        setTimeout(() => {setLoading(!false)}, 3000)        
-    },[]) 
-    console.log(userInfo, myFishBoard, fishBoard, 'FishBoard props')
+        start()
+    }, []) 
+    
+    useEffect(() => {
+        if(userInfo.isLogin === true) {
+            fishBoard(userInfo.email, 1, userInfo.accessToken)
+            setTimeout(() => {setLoading(!false)}, 3000)  
+        }      
+    },[render]) 
+   
+   // console.log(myFishBoard.data.data.result,'🌺')
     
    
     axios.defaults.withCredentials = true;
        
-//* 렌더링 시 로딩창나오게 하기 근데... 이거 시간 줘야하나?
-     const loadingOrMyFishList = myFishBoard.loading ? (<div>loading...</div>) : (
-          <div>
-            {myFishBoard.data.map(el => (<div key={el.id}>
-               <h3>{el.name}</h3>
-                <p>{el.email}</p>
-                <p>{el.body}</p>
-                </div>
-                ))
-             }
-            </div>
-          
-     )
 
 
-    //    //* 요청이거 보내주기   
-    //     axios.get(`https://localhost:443/fish/board/${userInfo.email}&&page?${page}`,{
-    //       headers :{ authorizationtoken: userInfo.accessToken}
-    //     })
-    //     .then((result) => console.log(result)) 
-    //     .catch(err => console.log(err))
-    //     }
-    //   const {fish_name, src, size, ranked, createdAt, id(수정삭제하려면 필요)) } = result.data
-       
+    const result = [
+        {fish_name: '도다리',ranked:57, src: photo, size: 5, createdAt:'20220220', fishId:3,  },
+        {fish_name: '숭어',ranked:57, src: photo, size: 10, createdAt:'20220220', fishId:6,  },
+        {fish_name: '홍어',ranked:57, src: photo, size: 5, createdAt:'20220220', fishId:11 },
+        {fish_name: '광어',ranked:57, src: photo, size: 5, createdAt:'20220220', fishId: 40 },
+        {fish_name: '도다리',ranked:57, src: photo, size: 5, createdAt:'20220220', fishId:2}
+    ]       
+        
       
-
-
-      const result = {data:[{fish_name: '도다리',ranked:57, src: photo, size: 5, createdAt:'20220220', id:3,  },
-      {fish_name: '도다리',ranked:57, src: photo, size: 5, createdAt:'20220220', id:6,  },
-      {fish_name: '도다리',ranked:57, src: photo, size: 5, createdAt:'20220220', id:11,  }
-    ]}
+      
     return (
-        <div>
-        {loading === false ? (<><LoadingPage /></>) : (
         <>
-        <Modal text='회원님이 잡은 물고기 목록을 볼 수 있습니다.'/>
-        <Div>   
-            <Title>
-            <h1>나의 월척~</h1>
-            <Btn><Link to='/record' style={{ textDecoration: 'none', color: 'black',fontWeight:'bolder' }}>기록하기</Link></Btn>
-            </Title>
-            {result.data.map(el => <FishList key={el.id} {...el} result={result}/>)}
-           {loadingOrMyFishList}
-        </Div>
-        </>
-        )}
-    </div>
+            {userInfo.isLogin === false ? 
+                <div>
+                    {loading === false ? <><LoadingPage /></> : 
+                    <>
+                    <Modal text='회원님이 잡은 물고기 목록을 볼 수 있습니다.'/>
+                    <Div>   
+                        <Title>
+                        <h1>나의 월척~</h1>
+                        <Btn><Link to='/record' style={{ textDecoration: 'none', color: 'black',fontWeight:'bolder' }}>기록하기</Link></Btn>
+                        </Title>
+                        {result.map(el => <FishList key={el.fishId} {...el} />)} 
+                        
+                    </Div>
+                    </>
+                    }
+                </div>
+                : 
+                <div>
+                    {loading === false ? <><LoadingPage /></> : 
+                    <>
+                    <Modal text='회원님이 잡은 물고기 목록을 볼 수 있습니다.'/>
+                    <Div>   
+                        <Title>
+                        <h1>나의 월척~</h1>
+                        <Btn><Link to='/record' style={{ textDecoration: 'none', color: 'black',fontWeight:'bolder' }}>기록하기</Link></Btn>
+                        </Title>
+                        {myFishBoard.data.data.result.map(el => <FishList key={el.fishId} {...el} render={render} rerender={rerender}/>)}
+                    
+                    </Div>
+                    </>
+                    }               
+                </div> 
+            }
+            
+           
+        </>  
     )
 }
-
+//result={result}
 const mapStateToProps = (state) => {
     // console.log(state,'88888') 
       return {
@@ -107,3 +130,7 @@ const mapDispatchToProps = {
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(FishBoard)
+
+
+
+

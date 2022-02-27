@@ -31,10 +31,10 @@ module.exports = {
     return res.status(200).json({
       data: {
         accessToken: await accessToken(email),
-        id: userInfo.dataValues.id,
-        email: userInfo.dataValues.email,
-        nickname: userInfo.dataValues.nickname,
-        login_method: userInfo.dataValues.login_method,
+        id: userInfo.id,
+        email: userInfo.email,
+        nickname: userInfo.nickname,
+        login_method: userInfo.login_method,
       },
     });
   },

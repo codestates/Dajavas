@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import axios from "axios";
 import {connect} from 'react-redux'
 import Modal from '../../Modal/Modal'
+import { useNavigate } from "react-router-dom"
 
 
 
@@ -59,10 +60,11 @@ const Span = styled.span`
 
 function BoardContent({userInfo}) {
   
-   
+   console.log(userInfo, '유저정보')
 
    
     axios.defaults.withCredentials = true;
+    const navigate = useNavigate();
     
     // 기록 하는곳 //* 기록을 입력해줄때 ranked를 왜써줬지..?
     const [record, setRecord] = useState({})
@@ -96,7 +98,7 @@ function BoardContent({userInfo}) {
 
 
    // ADD
-   const submit = (e) => {
+   const save = (e) => {
        e.preventDefault()
        if(!photo || !fishName || !size) {
         console.log(error)
@@ -109,25 +111,32 @@ function BoardContent({userInfo}) {
             fish_name: fishName,
             src: photo,
             size: size,
-            userId: userInfo.id
+            userId: userInfo.id,
+            ranked: '0',
+            
         })   
             
-        axios.post(`https://localhost:443/fish/board/1:/${userInfo.id}`, record, {
-           headers :{ authorizationtoken: userInfo.accessToken} // 토큰을 집어넣자
+        axios.post(`https://localhost:5000/fish/board`, record, {
+           headers :{ authorizationToken: userInfo.accessToken} // 토큰을 집어넣자
         })
         .then(result => console.log(result))
         .catch(error => console.log(error))      
          
     }
 }
-
+    const send = (e) => {
+        save(e)  
+        console.log(record)
+        setTimeout(() => {navigate('/fishboard')}, 500)
+       // navigate('/fishboard') 
+    }
 
     return (
         <>
         <Modal text='내가 잡은 물고기를 기록해보아요'/>
         <h1>기록</h1>
         <Div>
-            <form  onSubmit={submit} >
+            <form  onSubmit={save} >
                 <Day>
                     {year}년 {todayMonth}월 {today}일 {dayOfWeek}요일
                 </Day>
@@ -147,7 +156,8 @@ function BoardContent({userInfo}) {
                         <input type='text' onChange={(e)=>setSize(e.target.value)}></input><Span>cm</Span>
                     </div>
                 </Fish>
-                    <button>기록 저장</button>
+                    <button onSubmit={save}>기록 저장</button>
+                    <button onClick={send}>확인</button>
             </form>   
         </Div>
        </> 

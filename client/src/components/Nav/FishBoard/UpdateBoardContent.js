@@ -67,29 +67,24 @@ const Btn = styled.button`
 `
 
 function UpdateBoardContent({targetFish,userInfo,navigation}) {
-   console.log(targetFish,userInfo)
+   console.log(targetFish,'🤡',userInfo)
 
+   const [isRedirect, setIsRedirect] = useState(false)
+
+   axios.defaults.withCredentials = true;
     const navigate = useNavigate();
-    axios.defaults.withCredentials = true;
     
     // 기록 하는곳 
     const [record, setRecord] = useState(targetFish)
-    const [photo, setPhoto] = useState(targetFish.src)
-    const [size, setSize] = useState(targetFish.size)
+    const [photo, setPhoto] = useState(record.src)
+    const [size, setSize] = useState(record.size)
     
     const fishList = ['변경안함','광어', '황돔', '우럭', '농어', '불락', '넙치', '개서대']
-    const [fishName, setFishName] = useState(targetFish.fish_name)
+    const [fishName, setFishName] = useState(record.fish_name)
 
   
    
-   
-   /*  // 오늘날짜
-    let now = new Date()
-    let year = now.getFullYear()
-    let todayMonth = now.getMonth() + 1
-    let today = now.getDate()
-    const week = ['일', '월', '화', '수', '목', '금', '토']; 
-    let dayOfWeek = week[now.getDay()]; */
+  
 
     // 파일 업로드
     const firstImgHandle = (event) => {
@@ -104,7 +99,7 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
 
 
    // 수정
-   const submit = (e) => {
+   const save = (e) => {
         e.preventDefault()
 
         if(!photo || !fishName || !size) {          
@@ -115,8 +110,9 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
                 ...record, 
                 src: photo,
                 size: size,
-                ranked: 1
-            //유저 아이디 보내줄건지...    
+                ranked: 1,
+                userId: userInfo.id
+              
             })    
         }else {        
 //* 저장되었다는 모달창 띄우자 그러고나면 네비게이트로 /record로 보내주기
@@ -125,22 +121,36 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
                 fish_name: fishName,
                 src: photo,
                 size: size,
-                ranked: 1
-        //유저 아이디 보내줄건지...    
+                ranked: 1,
+                userId: userInfo.id
+           
         })   
-            
-        /* axios.post(`https://localhost:443/fish/board/1:/${userInfo.id}`, record, {
-           headers :{ authorizationtoken: userInfo.accessToken} // 토큰을 집어넣자
+        
+        axios({
+            url: `https://localhost:5000/fish/board`,
+            method: "put",
+            headers: {authorizationtoken: userInfo.accessToken},
+            data: record
         })
-        .then(result => console.log(result))
-        .catch(error => console.log(error))  */     
+        .then(result => {
+            console.log(result)
+            console.log(record,"수정된 정보.")
+            
+        })
+        .catch(err => console.log(err))               
          
     }
+
 }
-console.log(record,"수정된 정보이다.")
+    const send = () => {
+        navigate('/fishboard') 
+        save()  
+    }
+
     return (
+        
         <Div>
-            <form  onSubmit={submit} >
+            <form  onSubmit={save} >
                 <File> 
                     <div>선택한 사진 주소: {photo}</div>   
                     <Photo>사진첨부</Photo>
@@ -161,7 +171,8 @@ console.log(record,"수정된 정보이다.")
                         <input type='text' value={size} onChange={(e)=>setSize(e.target.value)}></input><Span>cm</Span>
                     </div>
                 </Fish>
-                    <Btn onClick={() => navigate(-1)}>기록 저장</Btn>
+                    <Btn onClick={save}>기록 저장</Btn>
+                    <Btn onClick={send}>확인</Btn>
             </form>   
         </Div>
     )
