@@ -39,79 +39,108 @@ const MyRank = styled.div`
     padding: 1rem;
     margin-bottom: 1rem;
 `
-// email이 필요한가?? 그리고 닉네임을 반환해야할것같다
+const Pagenation = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
+const Page = styled.h4`
+    padding:3px
+`
+
+
+// 닉네임을 반환해야할것같다
 
 function Ranking({userInfo}) {
     console.log(userInfo.email)
-    const fishList = ['광어', '황돔', '우럭', '농어', '불락', '넙치', '개서대']
-    const [fishName, setFishName] = useState("")
+    const fishList = ['선택하세요', '광어', '황돔', '우럭', '농어', '불락', '넙치', '개서대']
+    const [fishName, setFishName] = useState('선택하세요')
     const [selectedFishData, setSelectedFishData] = useState("") 
-
+    const [page, setPage] = useState(1)
 //닉네임이 안왔다., 그리고 헤더스에 뭐보내줄건 없는지 확인
     const getRank = () => {
+        
         console.log(fishName,'을 선택했습니다.')
-        axios.get(`https://localhost:443/ranking/fishName?fishName=${fishName}&&email=${userInfo.email}`)
+        axios.get(`https://localhost:5000/ranking?fishName=${fishName}&&page=${page}`)
         .then(result => {
-            console.log(result.data,'서버로부터 데이터 잘 받아져왔는지')
-            setSelectedFishData(result.data)
-            console.log(selectedFishData, "랭킹별 데이터")
+            console.log(result,'서버로부터 데이터 잘 받아져왔는지')
+            const data = result.data.data.realResult  
+            setSelectedFishData(data)
         })
         .catch(error => console.log(error))
     }
-
+    console.log(selectedFishData, "랭킹별 데이터") 
+   
     useEffect(() => {
        getRank()
-    }, [fishName])
+    }, [fishName, page])
 
 
 
 
     return (
-        <div>
+        <>
             <Box>
                 <Data>
                     <span>어종 선택: </span>
                     <select onChange={(e)=>setFishName(e.target.value)}>
                             {fishList.map((el,idx) => <option value={el} key={idx}>{el}</option>)}
-                    </select>
-                    
+                    </select>            
                 </Data>
             </Box>    
-            <Box>  
-                <Rank>
-                    <List>
-                        <Img src={photo} />
-                        <div>2등</div>
-                        <div>닉네임</div>
-                    </List>
-                    <List>
-                        <Img src={photo} />
-                        <div>1등</div>
-                        <div>닉네임</div>
-                    </List>
+        {page === 1 ?    
+            <div>
+                <Box>  
+                    <Rank>
+                        <List>
+                            <Img src={photo} />
+                            <div>2등</div>
+                            <div>닉네임</div>
+                        </List>
+                        <List>
+                            <Img src={photo} />
+                            <div>1등</div>
+                            <div>닉네임</div>
+                        </List>
 
-                    <List>
-                         <Img src={photo} /> 
-                        <div>3등</div>
-                        <div>닉네임</div>
-                    </List>
-                </Rank>
-            </Box>
-            <Box>        
-                <div>
-                    <RankingList/>
-                    <RankingList/>
-                    <RankingList/>
-                    <RankingList/>
-
-                </div>
-            </Box>
-            <Box>        
-                <MyRank>
-                    내순위
-                </MyRank>
-            </Box>
-        </div>
+                        <List>
+                            <Img src={photo} /> 
+                            <div>3등</div>
+                            <div>닉네임</div>
+                        </List>
+                    </Rank>
+                </Box>
+                <Box>        
+                    <div>                  
+                        <RankingList/>
+                        <RankingList/>
+                    </div>
+                
+                </Box>
+            </div>
+                :
+                <Box>        
+                    <div>
+                     
+                        <RankingList/>
+                        <RankingList/>
+                        <RankingList/>
+                        <RankingList/>
+                        <RankingList/> 
+                    </div>
+                </Box>
+            }
+            <Pagenation>
+                
+                <Page onClick ={() => setPage(1)}>1</Page>
+                <Page onClick={() => setPage(2)}>2</Page>
+                <Page onClick={() => setPage(3)}>3</Page>
+                <Page onClick={() => setPage(4)}>4</Page>
+                <Page onClick={() => setPage(5)}>5</Page>
+            
+            </Pagenation>
+        </>
     )
 }
 

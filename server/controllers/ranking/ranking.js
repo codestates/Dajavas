@@ -4,7 +4,8 @@ const func = require("../function");
 module.exports = {
   get: async (req, res) => {
     const { email, fishName } = req.query;
-    const allFiltered = [];;
+    
+    const allFiltered = [];
     const page = req.query.page || 1;
     const result = [];
     let realResult = [];

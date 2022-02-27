@@ -142,9 +142,9 @@ function UpdateBoardContent({targetFish,userInfo,navigation}) {
     }
 
 }
-    const send = () => {
-        navigate('/fishboard') 
-        save()  
+    const send = (e) => {
+        save(e)
+        setTimeout(() => {navigate('/fishboard')}, 500)
     }
 
     return (
