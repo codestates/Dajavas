@@ -7,6 +7,7 @@ import debounce from "lodash/debounce";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fa"; //구글 아이콘
 import { RiKakaoTalkFill } from "react-icons/ri"; //카카오 아이콘
+import { GoogleLogin } from "react-google-login";
 
 import { loginAction } from "../../redux/store/actions";
 import userApi from "../../API/user";
@@ -85,7 +86,12 @@ function Login({ type }) {
       `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_REST_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&state=google`
     );
   };
-
+  const success = async (res) => {
+    console.log(res.profileObj);
+  };
+  const onFailure = (error) => {
+    console.log(error);
+  };
   return (
     <>
       <div className="loginInputContainer">
@@ -121,6 +127,14 @@ function Login({ type }) {
       <button onClick={() => navigate("/home", { replace: false })}>
         홈으로
       </button>
+      <GoogleLogin
+        clientId={process.env.REACT_APP_GOOGLE_REST_KEY}
+        buttonText={"Login with Google"}
+        responseType={"id_token"}
+        onSuccess={success}
+        onFailure={onFailure}
+        cookiePolicy={"single_host_origin"}
+      />
       <div>아직 아이디가 없으신가요?</div>
       <button onClick={() => navigate("/signup", { replace: false })}>
         회원가입

@@ -24,7 +24,7 @@ app.use(
   cors({
     origin: "https://localhost:3000",
     credentials: true,
-    methods: ["GET", "POST", "PUT", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH"],
   })
 );
 

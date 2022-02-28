@@ -36,7 +36,7 @@ module.exports = {
         return res.status(401).send({ message: "not authorized" });
       } else {
         await arrPush();
-        return res.status(200).send({ data: { result } });
+        return res.status(200).send({ data: { realResult } });
       }
     } catch {
       return console.log("유저 사진 조회 잘못되었음");
@@ -44,8 +44,12 @@ module.exports = {
   },
   post: async (req, res) => {
     const { fish_name, size, ranked, src, userId } = req.body;
+    const validate = await func.validateToken(req.headers.authorizationtoken);
 
     try {
+      if (!validate) {
+        return res.status;
+      }
       const fish = await models.fish.create({
         fish_name: fish_name,
         size: size,
