@@ -14,7 +14,9 @@ import Login from "./components/Login/Login";
 import Signup from "./components/Login/Signup";
 import Nav from "./components/Nav/Nav";
 import Sidebar from "./components/Sidebar/Sidebar";
+import UpdateFish from "./components/Nav/FishBoard/UpdateFish";
 import styled from "styled-components";
+
 import axios from "axios";
 import { useState } from "react";
 
@@ -69,7 +71,7 @@ function App() {
           <Div>
             <Nav />
             <Routes>
-              <Route exact path="/" element={<Home />} />
+              <Route exact path="/home" element={<Home />} />
               <Route exact path="/ranking" element={<Ranking />} />
               <Route exact path="/map" element={<Map />} />
               <Route exact path="/fishboard" element={<FishBoard />} />
@@ -105,10 +107,10 @@ function App() {
                 path="/signup"
                 element={<Signup userInfo={userInfo} />}
               />
+              <Route exact path="/updatefish" element={<UpdateFish />} />
             </Routes>
           </Div>
         </Box>
-        <div></div>
       </Router>
     </div>
   );

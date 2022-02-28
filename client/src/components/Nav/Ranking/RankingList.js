@@ -12,13 +12,13 @@ const Img = styled.img`
     width: 10vw;
 `
 
-function RankingList() {    
+function RankingList({src, createdAt,size}) {    
     return (
         <Div>
-            <Img src={photo} />
+            <Img src={src} />
             <div>닉네임</div>
-            <div>크기</div>
-            <div>날짜</div>
+            <div>{size}</div>
+            <div>{createdAt}</div>
         </Div>
     )
 }

@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import userApi from "../../API/user";
 import { loginAction } from "../../redux/store/actions";
 import Fade from "react-reveal/Fade";
+import LoadingPage from "../../LoadingPage";
 
 // const Div = styled.div`
 //     background-color: #ABCCFF;

@@ -44,8 +44,7 @@ module.exports = {
   },
   post: async (req, res) => {
     const { fish_name, size, ranked, src, userId } = req.body;
-    const validate = await func.validateToken(req.headers.authorizationtoken);
-
+    console.log(req.body, "--------------");
     try {
       if (!validate) {
         return res.status;
@@ -53,7 +52,7 @@ module.exports = {
       const fish = await models.fish.create({
         fish_name: fish_name,
         size: size,
-        ranked: ranked,
+        ranked: "0",
         src: src,
         userId: userId,
       });
@@ -68,6 +67,7 @@ module.exports = {
   },
   put: async (req, res) => {
     const { fishId, fish_name, size, ranked, src, userId } = req.body;
+    console.log(req.body, "++++++++++++++++++");
     const validate = await func.validateToken(req.headers.authorizationtoken);
     try {
       if (!validate) {
@@ -90,12 +90,14 @@ module.exports = {
     }
   },
   delete: async (req, res) => {
-    const { email, userId, fishId } = req.body;
+    console.log(req.body.fishId, "+++++++++++++++++++");
+    const { fishId } = req.body;
     const validate = await func.validateToken(req.headers.authorizationtoken);
     try {
       if (!validate) {
         return res.status(401).send({ message: "not authorized" });
       } else {
+        console.log(fishId, "⭐️");
         await models.user_fish.destroy({ where: { fish_id: fishId } });
         await models.fish.destroy({ where: { id: fishId } });
         return res.status(200).send({ message: "deleted fish board" });
