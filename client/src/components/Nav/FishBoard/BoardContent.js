@@ -94,7 +94,9 @@ function BoardContent({userInfo}) {
 
 //* aws연결해야함 *//
    
- 
+//  const onChange = (e) => {
+//     setSize(e.target.value)
+//  }
 
 
    // ADD
