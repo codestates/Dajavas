@@ -141,9 +141,7 @@ function Login({ type }) {
       <button className="kakao" onClick={handleLoginKakao}>
         카카오로 로그인
       </button>
-      <button onClick={() => navigate("/home", { replace: false })}>
-        홈으로
-      </button>
+      <button onClick={() => navigate("/", { replace: false })}>홈으로</button>
       <div>아직 아이디가 없으신가요?</div>
       <button onClick={() => navigate("/signup", { replace: false })}>
         회원가입
@@ -152,5 +150,4 @@ function Login({ type }) {
     </>
   );
 }
-
 export default Login;
