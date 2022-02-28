@@ -88,7 +88,10 @@ function Ranking({userInfo}) {
                             {fishList.map((el,idx) => <option value={el} key={idx}>{el}</option>)}
                     </select>            
                 </Data>
-            </Box>    
+            </Box>
+/* //여기 잘안된다. selectedFishData === '선택하세요' */
+    {selectedFishData !== '선택하세요' ? 
+            <>       
         {page === 1 ?    
             <div>
                 <Box>  
@@ -97,17 +100,22 @@ function Ranking({userInfo}) {
                             <Img src={photo} />
                             <div>2등</div>
                             <div>닉네임</div>
+                            
+                           
                         </List>
                         <List>
                             <Img src={photo} />
                             <div>1등</div>
                             <div>닉네임</div>
+                            
+                            
                         </List>
 
                         <List>
                             <Img src={photo} /> 
                             <div>3등</div>
                             <div>닉네임</div>
+                            
                         </List>
                     </Rank>
                 </Box>
@@ -119,7 +127,7 @@ function Ranking({userInfo}) {
                 
                 </Box>
             </div>
-                :
+        :
                 <Box>        
                     <div>
                      
@@ -130,7 +138,10 @@ function Ranking({userInfo}) {
                         <RankingList/> 
                     </div>
                 </Box>
-            }
+        }
+            </>
+            :(<>어종을 선택해주세요</>)
+        }  
             <Pagenation>
                 
                 <Page onClick ={() => setPage(1)}>1</Page>

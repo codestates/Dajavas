@@ -99,11 +99,11 @@ function BoardContent({userInfo}) {
 
    // ADD
    const save = (e) => {
-       e.preventDefault()
-       if(!photo || !fishName || !size) {
+        e.preventDefault()
+        if(!photo || !fishName || !size) {
         console.log(error)
         alert('모두 입력해주세요')
-       } else {    
+        } else {    
         
 //* 저장되었다는 모달창 띄우자 그러고나면 네비게이트로 /record로 보내주기
 
@@ -116,12 +116,12 @@ function BoardContent({userInfo}) {
             
         })   
             
+        
         axios.post(`https://localhost:5000/fish/board`, record, {
            headers :{ authorizationToken: userInfo.accessToken} // 토큰을 집어넣자
         })
         .then(result => console.log(result))
         .catch(error => console.log(error))      
-         
     }
 }
     const send = (e) => {
