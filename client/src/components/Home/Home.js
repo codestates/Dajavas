@@ -8,8 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import userApi from "../../API/user";
 import { loginAction } from "../../redux/store/actions";
-import Fade from "react-reveal/Fade";
-import LoadingPage from "../../LoadingPage";
+//import LoadingPage from "../../LoadingPage";
 
 // const Div = styled.div`
 //     background-color: #ABCCFF;
@@ -102,39 +101,35 @@ function Home() {
   });
 
   return (
-    <>
-      <div>
-        <Fade bottom Big>
-          {/*// 페이드 다른거도 체크 // 물결?이동하는거 찾기 
+    <div>
+      {/*// 페이드 다른거도 체크 // 물결?이동하는거 찾기 
           설명 문구, 사이드바 숨기는거 토글메뉴 다른거 할거 받아오기 */}
-          <Bigdiv>
-            <UlBox>
-              <p>설명1</p>
-            </UlBox>
-            <Gitdiv bgColor="#F9B10B" />
-          </Bigdiv>
-          <Bigdiv>
-            <Gitdiv bgColor="#f3b178" />
-            <UlBox>
-              <p>설명2</p>
-            </UlBox>
-          </Bigdiv>
-          <Bigdiv>
-            <UlBox>
-              <p>설명3</p>
-            </UlBox>
-            <Gitdiv bgColor="#2aa1b7" />
-          </Bigdiv>
-          <Bigdiv>
-            <Gitdiv bgColor="#d8d7d8" />
-            <UlBox>
-              <p>설명4</p>
-            </UlBox>
-          </Bigdiv>
-        </Fade>
-        <Footer />
-      </div>
-    </>
+      <Bigdiv>
+        <UlBox>
+          <p>설명1</p>
+        </UlBox>
+        <Gitdiv bgColor="#F9B10B" />
+      </Bigdiv>
+      <Bigdiv>
+        <Gitdiv bgColor="#f3b178" />
+        <UlBox>
+          <p>설명2</p>
+        </UlBox>
+      </Bigdiv>
+      <Bigdiv>
+        <UlBox>
+          <p>설명3</p>
+        </UlBox>
+        <Gitdiv bgColor="#2aa1b7" />
+      </Bigdiv>
+      <Bigdiv>
+        <Gitdiv bgColor="#d8d7d8" />
+        <UlBox>
+          <p>설명4</p>
+        </UlBox>
+      </Bigdiv>
+      <Footer />
+    </div>
   );
 }
 
