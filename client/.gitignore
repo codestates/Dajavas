@@ -26,4 +26,4 @@ yarn-debug.log*
 yarn-error.log*
 
 *.pem
-.env
+*.env
