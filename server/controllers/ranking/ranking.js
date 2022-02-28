@@ -16,12 +16,19 @@ module.exports = {
         const findRank = await models.fish.findOne({
           where: { id: filteredFish[i].id },
         });
+        const findUser = await models.user_fish.findOne({
+          where: { fish_id: filteredFish[i].id },
+        });
+        const userInfo = await models.user.findOne({
+          where: { id: findUser.id },
+        });
         result.push({
           fish_name: findRank.fish_name,
           src: findRank.src,
           size: findRank.size,
           ranked: findRank.ranked,
           createdAt: findRank.createdAt,
+          nickname: userInfo.nickname,
         });
       }
       result.sort(function (a, b) {
