@@ -34,7 +34,7 @@ function Signup() {
     const [errorMessage, setErrorMessage] = useState('');
     const [isOnVerification, setIsOnVerification] = useState(false); //모든항목 유효성 검사 통과여부
 
-    const handleSignupInputChange = debounce(async (e) => {
+    const handleInputChange = debounce(async (e) => {
         const { name, value } = e.target;
         setInputValue({...inputValue, [name]: value});
         // console.log('제대로 입력값이',inputValue)
@@ -81,7 +81,6 @@ function Signup() {
                 const res = await userApi.checkNickname(value);
                 console.log('응답 왔는가?',res)
                 res.status === 200 && setErrorMessage('');
-                // setErrorMessage('');
             } catch(err){
                 setErrorMessage('이미 사용중인 닉네임입니다.');
             }
@@ -101,7 +100,7 @@ function Signup() {
             try{
                 const res = await userApi.signup(signInputValue);
                 res.status === 200 && setIsOnVerification(true);
-                navigate('/home', {replace: true})
+                navigate('/', {replace: true})
             } catch(err){
                 setErrorMessage('정보를 확인해주세요');
             }
@@ -128,22 +127,22 @@ function Signup() {
             <form className='SignupInputContainer'>
                 <div>
                     <div>
-                        <input name='email' type='text' autoComplete='username' placeholder='이메일' onChange={handleSignupInputChange}/>
+                        <input name='email' type='text' autoComplete='username' placeholder='이메일' onChange={handleInputChange}/>
                     </div>
                 </div>
                 <div>
                     <div>
-                        <input name='nickname' type='text' autoComplete='username' placeholder='닉네임' onChange={handleSignupInputChange}/>
+                        <input name='nickname' type='text' autoComplete='username' placeholder='닉네임' onChange={handleInputChange}/>
                     </div>
                 </div>
                 <div>
                     <div>
-                        <input name='password' type='text' autoComplete='new-password' placeholder='비밀번호' onChange={handleSignupInputChange}/>
+                        <input name='password' type='password' autoComplete='new-password' placeholder='비밀번호' onChange={handleInputChange}/>
                     </div>
                 </div>
                 <div>
                     <div>
-                        <input name='passwordCheck' type='text' autoComplete='current-password' placeholder='비밀번호 확인' onChange={handleSignupInputChange}/>
+                        <input name='passwordCheck' type='password' autoComplete='current-password' placeholder='비밀번호 확인' onChange={handleInputChange}/>
                     </div>
                 </div>
             </form>
@@ -157,7 +156,7 @@ function Signup() {
             <button className='kakao' onClick={handleSignKakao}>
                 카카오로 회원가입
             </button>
-            <button onClick={()=> navigate('/home', {replace: false})}>
+            <button onClick={()=> navigate('/', {replace: false})}>
                 홈으로
             </button>
             <button onClick={()=> navigate('/login', {replace: false})}>로그인</button>

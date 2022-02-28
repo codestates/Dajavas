@@ -67,7 +67,7 @@ function Login({type}) {
                     console.log('디스패치 전',res.data.data.isLogin)
                     dispatch(loginAction(res.data.data));
                     console.log('디스패치 후', res.data.data.isLogin)
-                    navigate('/home', {replace: true})
+                    navigate('/', {replace: true})
                 }
             } catch (err){
                 console.log(err);
@@ -139,7 +139,7 @@ function Login({type}) {
             <button className='kakao' onClick={handleLoginKakao}>
                 카카오로 로그인
             </button>
-            <button onClick = {()=> navigate('/home', {replace: false})}>
+            <button onClick = {()=> navigate('/', {replace: false})}>
                 홈으로
             </button>
             <div>
