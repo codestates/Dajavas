@@ -45,9 +45,10 @@ module.exports = {
   post: async (req, res) => {
     const { fish_name, size, ranked, src, userId } = req.body;
     console.log(req.body, "--------------");
+    const validate = await func.validateToken(req.headers.authorizationtoken);
     try {
       if (!validate) {
-        return res.status;
+        return res.status;       
       }
       const fish = await models.fish.create({
         fish_name: fish_name,
@@ -60,9 +61,10 @@ module.exports = {
         fish_id: fish.id,
         user_id: userId,
       });
+      console.log('qqq')
       return res.status(201).send({ message: `${userId}` });
-    } catch {
-      return console.log("유저 사진 기록 잘못되었음");
+    } catch(error) { 
+      return console.log("유저 사진 기록 잘못되었음",error);
     }
   },
   put: async (req, res) => {

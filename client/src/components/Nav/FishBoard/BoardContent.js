@@ -17,7 +17,6 @@ const Day = styled.div`
     border: dotted black 2px;
     margin: 1rem;
     padding: 1rem;
-
 `
 const File = styled.div`
     display: flex;
@@ -25,7 +24,6 @@ const File = styled.div`
     align-items: center;
     border: 2px solid green;
     margin: 0 1rem;
-
 `
 const Input = styled.input`
     padding: 1rem;
@@ -94,9 +92,7 @@ function BoardContent({userInfo}) {
 
 //* aws연결해야함 *//
    
-//  const onChange = (e) => {
-//     setSize(e.target.value)
-//  }
+ 
 
 
    // ADD
@@ -118,13 +114,13 @@ function BoardContent({userInfo}) {
             
         })   
             
-        
-        axios.post(`https://localhost:5000/fish/board`, record, {
-           headers :{ authorizationToken: userInfo.accessToken} // 토큰을 집어넣자
-        })
-        .then(result => console.log(result))
-        .catch(error => console.log(error))      
     }
+    
+    axios.post(`https://localhost:5000/fish/board`, record, {
+       headers :{ authorizationToken: userInfo.accessToken} // 토큰을 집어넣자
+    })
+    .then(result => console.log(result))
+    .catch(error => console.log(error))      
 }
     const send = (e) => {
         save(e)  
@@ -138,7 +134,7 @@ function BoardContent({userInfo}) {
         <Modal text='내가 잡은 물고기를 기록해보아요'/>
         <h1>기록</h1>
         <Div>
-            <form  onSubmit={save} >
+            <form  onSubmit={send} >
                 <Day>
                     {year}년 {todayMonth}월 {today}일 {dayOfWeek}요일
                 </Day>
