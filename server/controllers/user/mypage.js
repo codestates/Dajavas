@@ -49,6 +49,7 @@ module.exports = {
     }
   },
   delete: async (req, res) => {
+    // 카카오 로그인한 사람 회원탈퇴할때 카카오 연결 끊기 해줘야함
     const userInfo = await func.checkUser(req.query.email);
     try {
       await models.user_fish.destroy({ where: { user_id: userInfo.id } });
