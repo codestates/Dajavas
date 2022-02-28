@@ -6,6 +6,8 @@
 .pnp.js
 .env
 
+oauth.js
+
 # testing
 /coverage
 
