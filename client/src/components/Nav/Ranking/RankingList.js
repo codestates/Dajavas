@@ -12,13 +12,25 @@ const Img = styled.img`
     width: 10vw;
 `
 
-function RankingList({src, createdAt,size}) {    
+function RankingList({src, createdAt, size ,nickname, fish_name}) {    
+    
     return (
         <Div>
+        {size === undefined ? 
+            <>
+            <Img src={photo} />
+            <h4>랭킹에 도전해보세요</h4>
+            </>    
+            
+        :
+        <>
             <Img src={src} />
-            <div>닉네임</div>
-            <div>{size}</div>
-            <div>{createdAt}</div>
+            <div>{nickname}</div>
+            <div>{size}cm</div>
+            
+        </>
+        
+        }    
         </Div>
     )
 }

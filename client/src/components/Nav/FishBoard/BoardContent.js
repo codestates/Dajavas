@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom"
 
 
 
+
 const Div = styled.div`
    /*  background-color: #ABCCFF; */
     height:70vh;
@@ -125,8 +126,13 @@ function BoardContent({userInfo}) {
     const send = (e) => {
         save(e)  
         console.log(record)
-        setTimeout(() => {navigate('/fishboard')}, 500)
+        setTimeout(() => {navigate('/fishboard')}, 1000)
        // navigate('/fishboard') 
+    }
+    const goHome = () => {
+        
+        alert('로그인을 하세요')
+        navigate('/login')
     }
 
     return (
@@ -134,7 +140,7 @@ function BoardContent({userInfo}) {
         <Modal text='내가 잡은 물고기를 기록해보아요'/>
         <h1>기록</h1>
         <Div>
-            <form  onSubmit={send} >
+            <form  onSubmit={save} >
                 <Day>
                     {year}년 {todayMonth}월 {today}일 {dayOfWeek}요일
                 </Day>
@@ -154,8 +160,14 @@ function BoardContent({userInfo}) {
                         <input type='text' onChange={(e)=>setSize(e.target.value)}></input><Span>cm</Span>
                     </div>
                 </Fish>
-                    <button onSubmit={save}>기록 저장</button>
-                    <button onClick={send}>확인</button>
+                {userInfo.isLogin === false ? 
+                    <><button onClick={goHome}>기록 저장</button>
+                    <button onClick={goHome}>확인</button></>
+                    :
+                    <><button onSubmit={save}>기록 저장</button>
+                    <button onClick={send}>확인</button></>
+                }
+                    
             </form>   
         </Div>
        </> 
