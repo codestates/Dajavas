@@ -71,7 +71,8 @@ function App() {
           <Div>
             <Nav />
             <Routes>
-              <Route exact path="/home" element={<Home />} />
+              <Route exact path="/" element={<Home />} />
+
               <Route exact path="/ranking" element={<Ranking />} />
               <Route exact path="/map" element={<Map />} />
               <Route exact path="/fishboard" element={<FishBoard />} />

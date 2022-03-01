@@ -10,6 +10,7 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "aos": "^2.3.4",
     "aws-sdk": "^2.1077.0",
     "axios": "^0.25.0",
     "dotenv": "^14.2.0",
