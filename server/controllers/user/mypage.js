@@ -28,8 +28,11 @@ module.exports = {
   },
   put: async (req, res) => {
     // 개인정보 수정
+    console.log('요청된 바디',req)
     const { nickname, password, email } = req.body;
     const validate = await func.validateToken(req.headers.authorizationtoken);
+    // const userInfo = await func.checkUser(req.query.email);
+    // console.log(userInfo)
     try {
       if (!validate) {
         return res.status(401).json({ message: "not authorized" });
@@ -38,11 +41,15 @@ module.exports = {
           {
             nickname: nickname,
             password: password,
-            email: email,
+            // email: email,
           },
           { where: { email: email } }
         );
-        return res.status(200).json({ message: "edit ok" });
+        return res.status(200).json({ 
+          data:{
+
+          },
+          message: "edit ok" });
       }
     } catch {
       return console.log("회원정보 수정 잘못되었음");

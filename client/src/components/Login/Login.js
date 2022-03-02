@@ -9,7 +9,11 @@ import { FcGoogle } from "react-icons/fa"; //구글 아이콘
 import { RiKakaoTalkFill } from "react-icons/ri"; //카카오 아이콘
 import { GoogleLogin } from "react-google-login";
 
-import { loginAction } from "../../redux/store/actions";
+import { 
+  loginAction, 
+  logoutAction, 
+  updateInfoAction 
+} from "../../redux/store/actions";
 import userApi from "../../API/user";
 import userReducer from "../../redux/store/reducers/userReducer/userReducer";
 
@@ -71,7 +75,7 @@ function Login({ type }) {
           console.log("디스패치 전", res.data.data.isLogin);
           dispatch(loginAction(res.data.data));
           console.log("디스패치 후", res.data.data.isLogin);
-          navigate("/home", { replace: true });
+          navigate("/", { replace: true });
         }
       } catch (err) {
         console.log(err);
@@ -147,9 +151,7 @@ function Login({ type }) {
       <button className="kakao" onClick={handleLoginKakao}>
         카카오로 로그인
       </button>
-      <button onClick={() => navigate("/home", { replace: false })}>
-        홈으로
-      </button>
+      <button onClick={() => navigate("/", { replace: false })}>홈으로</button>
       <GoogleLogin
         clientId={process.env.REACT_APP_GOOGLE_REST_KEY}
         buttonText={"Login with Google"}

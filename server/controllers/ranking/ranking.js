@@ -4,7 +4,6 @@ const func = require("../function");
 module.exports = {
   get: async (req, res) => {
     const { email, fishName } = req.query;
-    
     const allFiltered = [];
     const page = req.query.page || 1;
     const result = [];
@@ -12,17 +11,22 @@ module.exports = {
     const filteredFish = await models.fish.findAll({
       where: { ranked: 1, fish_name: fishName },
     });
+    console.log(filteredFish,'+++++++++++')
     async function arrPush() {
       for (let i = 0; i < filteredFish.length; i++) {
         const findRank = await models.fish.findOne({
           where: { id: filteredFish[i].id },
         });
+        
+        console.log(findRank,"454545454545")
         const findUser = await models.user_fish.findOne({
           where: { fish_id: filteredFish[i].id },
         });
+        console.log(findUser,"77")
         const userInfo = await models.user.findOne({
-          where: { id: findUser.id },
+          where: { id: findUser.user_id },
         });
+        console.log(userInfo, '[][][][][][')
         result.push({
           fish_name: findRank.fish_name,
           src: findRank.src,
@@ -41,6 +45,7 @@ module.exports = {
     }
     try {
       await arrPush();
+      console.log(arrPush)
       return res.status(200).json({ data: { realResult } });
     } catch {
       return console.log("품종별 크기 랭킹 조회 잘못되었음");

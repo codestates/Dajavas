@@ -111,7 +111,7 @@ function Signup() {
         res.status === 200 && setIsOnVerification(true);
         navigate("/", { replace: true });
       } catch (err) {
-        setErrorMessage("정보를 확인해주세요");
+        setErrorMessage("정보를 확인해주세요1");
       }
     } else {
       setErrorMessage("정보를 확인해주세요");

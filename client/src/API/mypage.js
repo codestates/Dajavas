@@ -11,13 +11,17 @@ const mypageApi = {
     },
     //마이페이지 유저정보변경
     //axios.put(`/user/mypage/login_method/email`, {nickName: a, password: 123})
-    modifyUserInfo: (email, login_method, accessToken, formData) => {
+    modifyUserInfo: (accessToken, formData) => {
         console.log('api 요청시 formData', formData);
-        return api.put(`/user/mypage/${login_method}/${email}`, formData, {
+        // return api.put(`/user/mypage/${login_method}/${email}`, formData, {
+        // return api.put(`/user/mypage/${email}`, formData, {
+        return api.put('/user/mypage', formData, {
             headers: {
-               'AuthorizationToken': accessToken
+                "content-type": "multipart/form-data",
+               'AuthorizationToken': accessToken,
             }
         });
+
     },
     //마이페이지 회원탈퇴
     deleteUserInfo: (email, login_method, accessToken) => {

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom"
 
 
 
+
 const Div = styled.div`
    /*  background-color: #ABCCFF; */
     height:70vh;
@@ -17,7 +18,6 @@ const Day = styled.div`
     border: dotted black 2px;
     margin: 1rem;
     padding: 1rem;
-
 `
 const File = styled.div`
     display: flex;
@@ -25,7 +25,6 @@ const File = styled.div`
     align-items: center;
     border: 2px solid green;
     margin: 0 1rem;
-
 `
 const Input = styled.input`
     padding: 1rem;
@@ -116,19 +115,24 @@ function BoardContent({userInfo}) {
             
         })   
             
-        
-        axios.post(`https://localhost:5000/fish/board`, record, {
-           headers :{ authorizationToken: userInfo.accessToken} // 토큰을 집어넣자
-        })
-        .then(result => console.log(result))
-        .catch(error => console.log(error))      
     }
+    
+    axios.post(`https://localhost:5000/fish/board`, record, {
+       headers :{ authorizationToken: userInfo.accessToken} // 토큰을 집어넣자
+    })
+    .then(result => console.log(result))
+    .catch(error => console.log(error))      
 }
     const send = (e) => {
         save(e)  
         console.log(record)
-        setTimeout(() => {navigate('/fishboard')}, 500)
+        setTimeout(() => {navigate('/fishboard')}, 1000)
        // navigate('/fishboard') 
+    }
+    const goHome = () => {
+        
+        alert('로그인을 하세요')
+        navigate('/login')
     }
 
     return (
@@ -156,8 +160,14 @@ function BoardContent({userInfo}) {
                         <input type='text' onChange={(e)=>setSize(e.target.value)}></input><Span>cm</Span>
                     </div>
                 </Fish>
-                    <button onSubmit={save}>기록 저장</button>
-                    <button onClick={send}>확인</button>
+                {userInfo.isLogin === false ? 
+                    <><button onClick={goHome}>기록 저장</button>
+                    <button onClick={goHome}>확인</button></>
+                    :
+                    <><button onSubmit={save}>기록 저장</button>
+                    <button onClick={send}>확인</button></>
+                }
+                    
             </form>   
         </Div>
        </> 

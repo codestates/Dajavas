@@ -4,7 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
-.env
+
 
 oauth.js
 
@@ -26,3 +26,4 @@ yarn-debug.log*
 yarn-error.log*
 
 *.pem
+*.env

@@ -3,14 +3,28 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { connect } from 'react-redux'
 import axios from 'axios';
-const {kakao} = window
+import Like from './Like';
+import { useNavigate } from "react-router-dom";
+const {kakao} = window;
+
 //import KakaoMap from '../../../API/KakaoMap'
 
 const Div = styled.div`
     display:flex;
 `
+const Box = styled.div`
+    border: 2px solid green;
+    padding:10wh
+`
+const Pagenation = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
 
-
+const Page = styled.h4`
+    padding:3px
+`
 
 function Map({userInfo}) {
 
@@ -150,8 +164,7 @@ function Map({userInfo}) {
                 kakao.maps.event.addListener(marker, 'click', () => {
             
                     console.log('클릭한 위치의 위도',positions[i].latlng.La, '경도는',positions[i].latlng.Ma )
-                  
-                            
+                                              
                 });
         
                 }
@@ -260,6 +273,8 @@ console.log(array, '위도와경도 그리고 메세지를 서버에 보낼 수 
 // setArray({...array,  userId: userInfo.id})
 // console.log(array)
 
+
+//즐겨찾기 추가(저장) 버튼눌렀을때 서버에 데이터 전송
 const click = () => {
     console.log(array)
     axios.post(`https://localhost:5000/map`, array, {
@@ -267,25 +282,72 @@ const click = () => {
         })
         .then(result => console.log(result))
         .catch(error => console.log(error)) 
+        setBookmark(!setAddBookmark)
+
     
     
-   /*   const getMap = () => {
-        axios.get(`https://localhost:5000/map`, {
+      /* const getMap = () => {
+        axios.get(`https://localhost:5000/map?email=${userInfo.email}`, {
         headers :{ authorizationToken: userInfo.accessToken} // 토큰을 집어넣자
         })
         .then(result => console.log(result))
-        .catch(error => console.log(error))    
-    } */
-   /*  setTimeout(getMap, 1000)  */
+        .catch(error => console.log(error))  */   
+    /* } 
+     setTimeout(getMap, 1000)  */ 
+}
+
+
+const [ bookmarkList, setBookmarkList ] = useState('') //*null로 넣으면 왜 안된느거지?//
+const [paged, setPage] = useState(1)
+
+const [ setAddBookmark, setBookmark ] = useState(false)
+ const getMap = () => {
+        console.log('겟요청 간거임???', paged, "paged")
+    
+        axios.get(`https://localhost:5000/map?email=${userInfo.email}&&page=${paged}`, {
+        headers :{ authorizationToken: userInfo.accessToken} // 토큰을 집어넣자
+        })
+        .then(result => {
+            console.log(result)
+            console.log(result.data.data.realResult)
+            setBookmarkList(result.data.data.realResult)
+            console.log(bookmarkList) //* 여기도 ""로 찍힘
+        })
+        .catch(error => console.log(error))  
+    }
+    console.log(bookmarkList, '겟요청 받아온거 담은 배열') 
+    
+
+// 즐겨찾기 추가 버튼
+const addBookmark = () => {
+    console.log('북마크 추가')
+    setBookmark(false)
+    console.log(setAddBookmark,'북마크 추가를 눌렀을시 뜨는 화면')          
 }
 
 
 
-    
+const bookmark = () => {
+    console.log('북마크 겟요청')
+    setBookmark(true)
+    console.log(setAddBookmark,'즐겨찾기 누를시 뜨는 화면')
+    getMap()
+   
+   
+}
+    console.log(bookmarkList) 
+useEffect(() => {getMap()}, [paged])
+
+const navigate = useNavigate()
+const goHome = () => {
+    alert('로그인을 하세요')
+    navigate('/login')
+}
+console.log(bookmarkList[2])
     return (
         <div>
             
-            <h1 onClick = {() => {console.log('지도를 클릭했어요')}}>지도 앱</h1>
+            <h1>지도 앱</h1>
             
             <Div>
                 <div id ='map'    
@@ -295,15 +357,52 @@ const click = () => {
                 }}
                 >               
                 </div>
+                {userInfo.isLogin === false ? 
+                    <>
+                    <Box>
+                    <div>
+                        <button onClick={goHome}>즐겨찾기</button>
+                        <button onClick={goHome}>즐겨찾기 추가</button>
+                    </div>
+                    <div>로그인 후 이용 가능합니다</div>
+                    </Box>
+                    </>
+                    :
+                <Box>
+                    <div>
+                        <button onClick={bookmark}>즐겨찾기</button>
+                        <button onClick={addBookmark}>즐겨찾기 추가</button>
+                    </div>
+                    {setAddBookmark === false ? 
+                        <>
+                        <ul>
+                            <div>위치이름 : {array.location_name}</div>
+                            <div>경도: {array.long}</div>
+                            <div>위도:{array.lat}</div>
+                            <button onClick={click}>저장</button>
+                        </ul> 
+                        </> 
+                        : 
+                        <>북마크된 목록을 보여줍니다
+                        <Like {...bookmarkList[0]} />
+                        <Like {...bookmarkList[1]}/>
+                        <Like {...bookmarkList[2]}/>
+                        <Like {...bookmarkList[3]}/>
+                        <Like {...bookmarkList[4]}/>
+
+                         <Pagenation>
                 
-                <div>
-                    <ul>
-                    <div>위치이름 : {array.location_name}</div>
-                    <div>경도: {array.long}</div>
-                    <div>위도:{array.lat}</div>
-                    <button onClick={click}>저장</button>
-                    </ul>  
-                </div>
+                            <Page onClick ={() => setPage(1)}>1</Page>
+                            <Page onClick={() => setPage(2)}>2</Page>
+                            <Page onClick={() => setPage(3)}>3</Page>
+                            <Page onClick={() => setPage(4)}>4</Page>
+                            <Page onClick={() => setPage(5)}>5</Page>
+            
+                        </Pagenation> 
+                        </>
+                    }
+                </Box>
+            }
             </Div>
         </div>
     )
