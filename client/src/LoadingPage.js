@@ -1,49 +1,25 @@
-import React from 'react'
-import styled from 'styled-components'
-//import styled, { keyframes } from 'styled-components';
+import React from "react";
+import styled from "styled-components";
+import Wave from "react-wavify";
 
 const Div = styled.div`
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    height: 100vh;
-    background-color: wheat;
-`
-
-const Load = styled.h1`
-    font-size: 2rem;
-    color: #fff;
-    position: relative;
-    &::before {
-        content: attr(data);
-        color:black;
-        position:absolute;
-        left:0;
-        z-index: 2;
-        overflow: hidden;
-        width:100%;
-        animation: loading, 5s, ease infinite;
-    }
-    &::after {
-        content: "";
-        height:4px;
-        background-color: red;
-        position:absolute;
-        left:0;
-        bottom: --10px;
-        width:100%;
-        animation: loading, 5s, ease infinite;
-    }
-`
+  top: 50%;
+  left: 50%;
+  width: 350px;
+  height: 350px;
+  border-radius: 80%;
+`;
 
 function LoadingPage() {
-
- 
-    return (
-        <Div>
-            <Load >LOADING</Load>
-        </Div>
-    )
+  return (
+    <Div>
+      <Wave
+        fill="#2aa1b7"
+        pause={false}
+        options={{ heigth: 0, amplitued: 50, speed: 0.2, points: 4 }}
+      />
+    </Div>
+  );
 }
 
-export default LoadingPage
+export default LoadingPage;
