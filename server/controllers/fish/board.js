@@ -45,10 +45,11 @@ module.exports = {
   post: async (req, res) => {
     const { fish_name, size, ranked, src, userId } = req.body;
     console.log(req.body, "--------------");
+    //const validate = await func.validateToken(req.headers.authorizationtoken);
     try {
-      if (!validate) {
-        return res.status;
-      }
+      // if (!validate) {
+      //   return res.status;
+      // }
       const fish = await models.fish.create({
         fish_name: fish_name,
         size: size,

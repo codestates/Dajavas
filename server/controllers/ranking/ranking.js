@@ -4,7 +4,7 @@ const func = require("../function");
 module.exports = {
   get: async (req, res) => {
     const { email, fishName } = req.query;
-    
+
     const allFiltered = [];
     const page = req.query.page || 1;
     const result = [];
@@ -21,7 +21,7 @@ module.exports = {
           where: { fish_id: filteredFish[i].id },
         });
         const userInfo = await models.user.findOne({
-          where: { id: findUser.id },
+          where: { id: findUser.user_id },
         });
         result.push({
           fish_name: findRank.fish_name,
