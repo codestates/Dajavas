@@ -5,6 +5,7 @@ module.exports = {
   get: async (req, res) => {
     const validate = await func.validateToken(req.headers.authorizationtoken);
     const userInfo = await func.checkUser(req.query.email);
+    const page = req.query.page || 1;
     const result = [];
     let realResult = [];
     const data = await models.location.findAll({

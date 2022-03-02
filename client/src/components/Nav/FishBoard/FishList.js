@@ -8,9 +8,9 @@ import UpdateFish from './UpdateFish'
 // import  { axiosFishBoard }  from '../../../redux'
 import { targetFind } from '../../../redux/store/actions'
 import { faCrown } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from '../../Modal/Modal';
 import { useNavigate } from "react-router-dom"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
