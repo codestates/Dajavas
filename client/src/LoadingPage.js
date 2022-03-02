@@ -17,7 +17,7 @@ function LoadingPage() {
         fill="#2aa1b7"
         pause={false}
         options={{ heigth: 0, amplitued: 50, speed: 0.2, points: 4 }}
-      />
+      ></Wave>
     </Div>
   );
 }
