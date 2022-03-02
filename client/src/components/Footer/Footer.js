@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Logo from "../../img/javas.png";
 
 const Bdiv = styled.div`
+  margin-top: 30px;
   display: flex;
 `;
 

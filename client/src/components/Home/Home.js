@@ -9,6 +9,9 @@ import { useNavigate } from "react-router-dom";
 import userApi from "../../API/user";
 import { loginAction } from "../../redux/store/actions";
 import LoadingPage from "../../LoadingPage";
+//import LoadingPage from "../../LoadingPage";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 // const Div = styled.div`
 //     background-color: #ABCCFF;
@@ -69,6 +72,10 @@ function Home() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    Aos.init({ duration: 2000 });
+  }, []);
+
+  useEffect(() => {
     const url = new URL(window.location.href);
     const code = url.searchParams.get("code");
     const state = url.searchParams.get("state");
@@ -78,7 +85,7 @@ function Home() {
       console.log("카카오 로그인 리다이렉트시 응답", res);
       if (res.status === 200) {
         dispatch(loginAction(res.data));
-        navigate("/", { replace: true });
+        navigate("/home", { replace: true });
       }
     };
 
@@ -87,7 +94,7 @@ function Home() {
       console.log("구글 로그인 리다이렉트시 응답", res);
       if (res.status === 200) {
         dispatch(loginAction(res.data));
-        navigate("/", { replace: true });
+        navigate("/home", { replace: true });
       }
     };
 
@@ -103,36 +110,35 @@ function Home() {
   return (
     <>
       <div>
-          {/*// 페이드 다른거도 체크 // 물결?이동하는거 찾기 
+        {/*// 페이드 다른거도 체크 // 물결?이동하는거 찾기 
           설명 문구, 사이드바 숨기는거 토글메뉴 다른거 할거 받아오기 */}
-          <Bigdiv>
-            <UlBox>
-              <p>설명1</p>
-            </UlBox>
-            <Gitdiv bgColor="#F9B10B" />
-          </Bigdiv>
-          <Bigdiv>
-            <Gitdiv bgColor="#f3b178" />
-            <UlBox>
-              <p>설명2</p>
-            </UlBox>
-          </Bigdiv>
-          <Bigdiv>
-            <UlBox>
-              <p>설명3</p>
-            </UlBox>
-            <Gitdiv bgColor="#2aa1b7" />
-          </Bigdiv>
-          <Bigdiv>
-            <Gitdiv bgColor="#d8d7d8" />
-            <UlBox>
-              <p>설명4</p>
-            </UlBox>
-          </Bigdiv>
+        <Bigdiv data-aos="fade-down">
+          <UlBox>
+            <p>설명1</p>
+          </UlBox>
+          <Gitdiv bgColor="#F9B10B" />
+        </Bigdiv>
+        <Bigdiv data-aos="fade-up">
+          <Gitdiv bgColor="#f3b178" />
+          <UlBox>
+            <p>설명2</p>
+          </UlBox>
+        </Bigdiv>
+        <Bigdiv data-aos="fade-right">
+          <UlBox>
+            <p>설명3</p>
+          </UlBox>
+          <Gitdiv bgColor="#2aa1b7" />
+        </Bigdiv>
+        <Bigdiv data-aos="fade-left">
+          <Gitdiv bgColor="#d8d7d8" />
+          <UlBox>
+            <p>설명4</p>
+          </UlBox>
+        </Bigdiv>
         <Footer />
       </div>
     </>
   );
 }
-
 export default Home;
