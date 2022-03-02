@@ -3,7 +3,6 @@ const { accessToken } = require("./accesstoken");
 const axios = require("axios");
 const models = require("../../models");
 const dotenv = require("dotenv");
-import GoogleLogin from require("react-google-login")
 
 module.exports = {
   post: async (req, res) => {

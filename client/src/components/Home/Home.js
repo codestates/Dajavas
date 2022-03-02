@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import userApi from "../../API/user";
 import { loginAction } from "../../redux/store/actions";
-import Fade from "react-reveal/Fade";
 import LoadingPage from "../../LoadingPage";
 
 // const Div = styled.div`
@@ -104,7 +103,6 @@ function Home() {
   return (
     <>
       <div>
-        <Fade bottom Big>
           {/*// 페이드 다른거도 체크 // 물결?이동하는거 찾기 
           설명 문구, 사이드바 숨기는거 토글메뉴 다른거 할거 받아오기 */}
           <Bigdiv>
@@ -131,7 +129,6 @@ function Home() {
               <p>설명4</p>
             </UlBox>
           </Bigdiv>
-        </Fade>
         <Footer />
       </div>
     </>
