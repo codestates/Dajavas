@@ -4,7 +4,6 @@ const axios = require("axios");
 const models = require("../../models");
 const dotenv = require("dotenv");
 
-
 module.exports = {
   post: async (req, res) => {
     const { login_method, email, googleId } = req.body;

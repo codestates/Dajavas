@@ -9,7 +9,11 @@ import { FcGoogle } from "react-icons/fa"; //구글 아이콘
 import { RiKakaoTalkFill } from "react-icons/ri"; //카카오 아이콘
 import { GoogleLogin } from "react-google-login";
 
-import { loginAction } from "../../redux/store/actions";
+import { 
+  loginAction, 
+  logoutAction, 
+  updateInfoAction 
+} from "../../redux/store/actions";
 import userApi from "../../API/user";
 import userReducer from "../../redux/store/reducers/userReducer/userReducer";
 
