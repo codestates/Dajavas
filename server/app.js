@@ -1,3 +1,5 @@
+
+
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
@@ -5,8 +7,13 @@ const cookieParser = require("cookie-parser");
 const fs = require("fs");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const mapRouter = require("./routes/map");
+const rankingRouter = require("./routes/ranking");
+const fishRouter = require("./routes/fish");
 const https = require("https");
-
+const cors = require("cors");
+const dotenv = require("dotenv");
+dotenv.config();
 const app = express();
 
 // view engine setup
@@ -17,9 +24,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(
+  cors({
+    origin: ['https://localhost:3000', 'http://localhost:3000', 'https://dajavas.net', 'http://dajavas.net'],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH"],
+  })
+);
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/user", usersRouter);
+app.use("/fish", fishRouter);
+app.use("/map", mapRouter);
+app.use("/ranking", rankingRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -38,7 +55,7 @@ app.use(function (err, req, res, next) {
 });
 
 // ----
-const HTTPS_PORT = process.env.HTTPS_PORT || 5000;
+const HTTPS_PORT = 5000 || 443 || 80
 
 // 인증서 파일들이 존재하는 경우에만 https 프로토콜을 사용하는 서버를 실행합니다.
 // 만약 인증서 파일이 존재하지 않는경우, http 프로토콜을 사용하는 서버를 실행합니다.
@@ -54,6 +71,7 @@ if (fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")) {
 } else {
   server = app.listen(HTTPS_PORT, () => {
     console.log("http server runnning");
+    
   });
 }
 module.exports = server;

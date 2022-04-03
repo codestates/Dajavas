@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+
+oauth.js
+
 # testing
 /coverage
 
@@ -23,3 +26,6 @@ yarn-debug.log*
 yarn-error.log*
 
 *.pem
+cert.pem
+key.pem
+*.env

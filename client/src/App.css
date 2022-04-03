@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300;400;500;600;700&family=Hubballi&display=swap');
 .App {
   text-align: center;
+  font-family: 'Gothic A1', sans-serif;
+  width:100vw;
+  height: 100vh;
 }
 
 .App-logo {
@@ -26,13 +30,4 @@
 
 .App-link {
   color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
