@@ -10,7 +10,7 @@ module.exports = {
     const authCode = req.body.authCode;
     const kakaoBody = {
       grant_type: "authorization_code",
-      redirect_uri: "https://localhost:3000",
+      redirect_uri: process.env.CLIENT_URL,
       client_id: process.env.REACT_APP_KAKAO_REST_KEY,
       code: authCode,
     };

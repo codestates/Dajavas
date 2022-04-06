@@ -11,4 +11,6 @@ export REACT_APP_KAKAO_REST_KEY=$(aws ssm get-parameters --region ap-northeast-2
 export REACT_APP_GOOGLE_REST_KEY=$(aws ssm get-parameters --region ap-northeast-2 --names REACT_APP_GOOGLE_REST_KEY --query Parameters[0].Value | sed 's/"//g')
 export REACT_APP_GOOGLE_REST_KEY_SECRET=$(aws ssm get-parameters --region ap-northeast-2 --names REACT_APP_GOOGLE_REST_KEY_SECRET --query Parameters[0].Value | sed 's/"//g')
 export DATABASE_USERNAME=$(aws ssm get-parameters --region ap-northeast-2 --names DATABASE_USERNAME --query Parameters[0].Value | sed 's/"//g')
+export CLIENT_URL=$(aws ssm get-parameters --region ap-northeast-2 --names CLIENT_URL --query Parameters[0].Value | sed 's/"//g')
+
 authbind --deep pm2 start app.js
