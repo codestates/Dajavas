@@ -3,12 +3,12 @@ import api from "./index";
 const userApi = {
   //유저 로그인 /user/login
   login: (info) => {
-    return api.post("/user/login", info); 
+    return api.post("/user/login", info);
   },
   //유저 소셜로그인
   kakao: (authCode) => {
     return api.post(
-      "/user/login/kakao", 
+      "/user/login/kakao",
       { authCode },
       {
         headers: {
@@ -17,17 +17,7 @@ const userApi = {
       }
     );
   },
-  google: (profileObj) => {
-    return api.post(
-      "/user/login/google",
-      { profileObj },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-  },
+
   //유저 회원가입
   signup: (info) => api.post("/user/signup", info),
 

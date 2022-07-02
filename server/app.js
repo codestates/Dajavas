@@ -1,5 +1,3 @@
-
-
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
@@ -24,9 +22,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
 app.use(
   cors({
-    origin: ['https://localhost:3000', 'http://localhost:3000', 'https://dajavas.net', 'http://dajavas.net'],
+    origin: [
+      "https://dajavas.net",
+      "https://dajavas.net/",
+      "http://dajavas.net",
+      "http://dajavas.net/",
+      "https://localhost:3000",
+      "http://localhost:3000",
+      "https://localhost:3000/",
+      "http://localhost:3000/",
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH"],
   })
@@ -43,7 +51,7 @@ app.use(function (req, res, next) {
   next(createError(404));
 });
 
-// error handler
+//error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
@@ -54,25 +62,23 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-// ----
-const HTTPS_PORT = 5000 || 443 || 80
+const models = require("./models/index.js");
 
-// 인증서 파일들이 존재하는 경우에만 https 프로토콜을 사용하는 서버를 실행합니다.
-// 만약 인증서 파일이 존재하지 않는경우, http 프로토콜을 사용하는 서버를 실행합니다.
-// 파일 존재여부를 확인하는 폴더는 서버 폴더의 package.json이 위치한 곳입니다.
-let server;
-if (fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")) {
-  const privateKey = fs.readFileSync(__dirname + "/key.pem", "utf8");
-  const certificate = fs.readFileSync(__dirname + "/cert.pem", "utf8");
-  const credentials = { key: privateKey, cert: certificate };
-
-  server = https.createServer(credentials, app);
-  server.listen(HTTPS_PORT, () => console.log("https server runnning👊"));
-} else {
-  server = app.listen(HTTPS_PORT, () => {
-    console.log("http server runnning");
-    
+models.sequelize
+  .sync()
+  .then(() => {
+    console.log("DB 연결 성공");
+  })
+  .catch((err) => {
+    console.log("연결 실패");
+    console.log(err);
   });
-}
+
+const HTTPS_PORT = 80;
+
+let server;
+server = app.listen(HTTPS_PORT, () => {
+  console.log("http server runnning");
+});
+
 module.exports = server;
-// module.exports = app;
