@@ -11,7 +11,6 @@ const Div = styled.div`
 const ImgDiv = styled.div`
   width: 100px;
   height: 120px;
-  /* border: red 2px solid; */
   box-sizing: border-box;
   width: 50%;
 `;
@@ -22,7 +21,6 @@ const Img = styled.img`
 `;
 
 const ContentDiv = styled.div`
-  /* border-left: solid 1px gray;  */
   box-sizing: border-box;
   width: 50%;
   box-shadow: 0 10px 25px #3c4a5645;

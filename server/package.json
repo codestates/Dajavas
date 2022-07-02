@@ -17,7 +17,6 @@
     "multer-s3": "^2.10.0",
     "mysql2": "^2.3.3",
     "pug": "2.0.0-beta11",
-    "react-google-login": "^5.2.2",
     "sequelize": "^6.16.1"
   },
   "devDependencies": {

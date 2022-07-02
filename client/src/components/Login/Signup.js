@@ -2,67 +2,56 @@ import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import debounce from "lodash/debounce";
-import { RiKakaoTalkFill } from "react-icons/ri"; //카카오 아이콘
+import { RiKakaoTalkFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import Wave from "react-wavify";
-import { GoogleLogin } from "react-google-login";
-import { loginAction } from "../../redux/store/actions";
 import userApi from "../../API/user";
 import { useDispatch } from "react-redux";
 
 const Container = styled.div`
   width: 100vw;
   height: 100vw;
-`
+`;
 const Tag = styled.div`
   font-size: 25px;
   font-weight: bold;
   margin-top: 3rem;
-`
+`;
 const SignupWraper = styled.div`
   padding: 5rem;
-`
+`;
 const SignupInput = styled.input`
-  outline: none; /* outline 테두리 없애기 */
-  border:0 ;
-  background-color: #E8F0FE;
+  outline: none;
+  border: 0;
+  background-color: #e8f0fe;
   border-radius: 0.5rem;
   width: 21.5rem;
   padding: 1rem;
   margin: 0.5rem;
-`
+`;
 
-const SignupBtn = styled.button`
-  
-`
 const Social = styled.div`
   margin: 0.5rem;
   padding: 1rem;
-`
-const Google = styled.button`
-  outline: 0;
-  font-weight: 500;
-  font-size: 20px;
-  border: 0;
-  background-color: white;
-`
+`;
+
 const GenSignup = styled.button`
   margin: 1rem;
   padding: 0.7rem;
   width: 23.6rem;
-  border: 3px solid #2AA1B7;
+  border: 3px solid #2aa1b7;
   outline: none;
   border-radius: 0.4rem;
   background-color: white;
   font-size: 20px;
   font-weight: 500;
-  color: #2AA1B7;
-  &:hover{
+  color: #2aa1b7;
+  &:hover {
     cursor: pointer;
-    background-color: #2AA1B7;
-    color: white
+    background-color: #2aa1b7;
+    color: white;
   }
-`
+`;
 const Kakao = styled.button`
   margin-right: 1rem;
   outline: none;
@@ -74,10 +63,8 @@ const Kakao = styled.button`
   padding: 0.7rem;
   box-shadow: 0.5px 1px 2px 1px lightgray;
   opacity: 0.7;
-`
-const GenBtn = styled.div`
-  /* border: 1px dashed rebeccapurple; */
-`
+`;
+const GenBtn = styled.div``;
 const Btn = styled.button`
   border: 3px white;
   margin: 0.4rem;
@@ -86,16 +73,16 @@ const Btn = styled.button`
   height: 3rem;
   width: 11.5rem;
   margin-top: 1rem;
-  background-color: #2AA1B7;
+  background-color: #2aa1b7;
   font-size: 20px;
   color: white;
-  &:hover{
+  &:hover {
     cursor: pointer;
     background-color: white;
-    border: 3px solid #2AA1B7;
-    color: #2AA1B7
+    border: 3px solid #2aa1b7;
+    color: #2aa1b7;
   }
-`
+`;
 
 function Signup() {
   const navigate = useNavigate();
@@ -146,9 +133,7 @@ function Signup() {
       const passwordVal = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,20}$/.test(
         value
       );
-      /*  조건1. 6~20 영문 대소문자
-                조건2. 최소 1개의 숫자 혹은 특수 문자를 포함해야 함  
-            */
+
       setValidated({ ...validated, [name]: passwordVal });
       if (value === "") setErrorMessage("");
       else if (passwordVal) {
@@ -179,7 +164,6 @@ function Signup() {
   });
 
   const handleSignup = async (e) => {
-
     const valResult = Object.values(validated).every((el) => {
       return el === true;
     });
@@ -205,23 +189,10 @@ function Signup() {
     );
   };
 
-  const success = async (e) => {
-    const a = await userApi.google(e.profileObj, "2");
-    if (a.status === 200) {
-      dispatch(loginAction(a.data.data));
-      navigate("/", { replace: true });
-    }
-  };
-  const onFailure = (error) => {
-    console.log(error);
-  };
-
   return (
     <Container>
       <SignupWraper>
-        <Tag>
-          회원가입
-        </Tag>
+        <Tag>회원가입</Tag>
         <form className="SignupInputContainer">
           <div>
             <div>
@@ -274,18 +245,9 @@ function Signup() {
         </GenSignup>
         <Social>
           <Kakao className="kakao" onClick={handleSignKakao}>
-            <RiKakaoTalkFill/>
+            <RiKakaoTalkFill />
             카카오 회원가입
           </Kakao>
-          <GoogleLogin
-            clientId={process.env.REACT_APP_GOOGLE_REST_KEY}
-            responseType={"id_token"}
-            onSuccess={success}
-            onFailure={onFailure}
-            cookiePolicy={"single_host_origin"}
-            >
-            <Google>구글로 로그인</Google>
-          </GoogleLogin>
         </Social>
         <GenBtn>
           <Btn onClick={() => navigate("/", { replace: false })}>홈으로</Btn>
@@ -294,15 +256,14 @@ function Signup() {
           </Btn>
         </GenBtn>
       </SignupWraper>
-      {/* <FishingImg src={fishingImg} alt='fishingImg'/> */}
       <Wave
-        fill = '#1277b0'
+        fill="#1277b0"
         paused={false}
         options={{
-            height: 10,
-            amplitude: 18,
-            speed: 0.30,
-            points: 8
+          height: 10,
+          amplitude: 18,
+          speed: 0.3,
+          points: 8,
         }}
       />
     </Container>

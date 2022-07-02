@@ -19,46 +19,41 @@ const ModalBackdrop = styled.div`
 const ModalContainer = styled.div`
   height: 70vh;
   width: 60vw;
-  /* border: solid 2px #abccff; */
-  /* background-color: blue; */
   border-radius: 12%;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 const Btn = styled.button`
-  
   text-decoration: none;
   font-size: x-large;
-  font-weight : bolder;
+  font-weight: bolder;
   border: none;
   padding: 20px;
-  color: #0E3B5B;
+  color: #0e3b5b;
   border-radius: 30px;
   cursor: grab;
   &:hover {
-        color: coral;
-        cursor: pointer;
-    }
+    color: coral;
+    cursor: pointer;
+  }
 `;
 const Div = styled.div`
-  background-color:#EBF1F1; 
+  background-color: #ebf1f1;
   border-radius: 3%;
   border: gray 0.1px solid;
   box-shadow: 0 10px 25px #3c4a5645;
-`
+`;
 const Title = styled.title`
-  display:flex;
+  display: flex;
   justify-content: flex-end;
-`
+`;
 const Text = styled.div`
-    font-size: 2rem;
-    font-weight: bolder;
-    color: #8BBAC2;
-    padding-bottom: 15px;
-    
-
-`
+  font-size: 2rem;
+  font-weight: bolder;
+  color: #8bbac2;
+  padding-bottom: 15px;
+`;
 
 function UpdateFishModal() {
   const navigate = useNavigate();
@@ -69,8 +64,6 @@ function UpdateFishModal() {
     navigate(-1);
   };
 
-
-  
   return (
     <div>
       {open === false ? (
@@ -81,10 +74,10 @@ function UpdateFishModal() {
                 <Title>
                   <div></div>
                   <div onClick={(e) => e.stopPropagation()}>
-                  <Btn onClick={openModalHandler}>X</Btn>
+                    <Btn onClick={openModalHandler}>X</Btn>
                   </div>
                 </Title>
-                  <Text>수정</Text> 
+                <Text>수정</Text>
                 <UpdateBoardContent />
               </div>
             </Div>
